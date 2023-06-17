@@ -1,0 +1,226 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-weight: "Poppins", sans-serif;
+}
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.spad {
+  padding-top: 100px;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.ul-services li {
+  color: #1d1d1d;
+  font-size: 16px;
+}
+@media (min-width: 567px) {
+  .ul-services li {
+    font-size: 16px;
+  }
+}
+@media (min-width:768px) {
+  .ul-services li {
+    font-size: 20px;
+  }
+}
+@media (min-width:991px) {
+  .ul-services li {
+    font-size: 24px;
+  }
+}
+
+/* React Slick  */
+.slick-list {
+  margin: 0  12px;
+}
+.slick-slide > div {
+  padding: 0 12px;
+}
+
+.slick-next {
+  right:30px !important;
+  width: 51px !important;
+  height: 62px !important;
+
+}
+
+.slick-dots li.slick-active button::before {
+  opacity: .75;
+    color: black;
+    content: "";
+    width: 24px;
+    height: 8px;
+    background: #6E2E02;
+    margin-top: 5px;
+    /* line-height: 36px; */
+    border-radius: 5px;
+}
+
+.slick-dots li {
+  margin: 0 8px !important;
+}
+.slick-slide > div {
+  padding:0
+}
+@media (min-width: 576px) {
+  .slick-next {
+    background: url('./assets/icons/nextArrow.png') center center no-repeat!important;
+  }
+  .slick-next::before {
+    display: none;
+  }
+}
+/* line vertical */
+@media (min-width: 900px) {
+  .line {
+    position: relative;
+  }
+  .line::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background-color: rgb(17 16 16 / 6%);
+    top: 0;
+    left: 10px;
+  }
+}
+
+/* animation */
+.from-right {
+  animation-name: right;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes right {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0px);
+  }
+}
+
+.top-in {
+  animation-name: topin;
+  animation-duration: 1s;
+}
+
+@keyframes topin {
+  from {
+    transform: translateY(-50px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+
+/* edit height to image */
+.img-cover {
+  height: 190px;
+  /* object-fit: cover; */
+  border-radius: 8px;
+}
+
+.img-cover-shop {
+  height: 160px;
+  /* object-fit: cover; */
+  border-radius: 8px;
+}
+
+.cart-img  {
+  width: 118px;
+  height: 118px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* side cart */
+.side-cart::-webkit-scrollbar {
+  width: 4px;
+}
+
+.side-cart::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.side-cart::-webkit-scrollbar-thumb {
+  background: #4a4242ba;
+}
+
+.side-cart::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* btn outline with gradient */
+.main-btn-outline {
+  border-style: none;
+  width: 100%;
+  padding: 12px;
+  /* background-color: #D3C0B3; */
+  background: #D3C0B3;
+  /* -webkit-background-clip: border-box; */
+  font-size: 20px;
+  text-transform: capitalize;
+  font-weight: 500;
+  border-radius: 8px;
+  box-sizing: border-box;
+  position: static;
+}
+
+.main-btn-not-active {
+  border:none;
+  color: #9D9D9D;
+  background:#fff
+ 
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+.row .col {
+  flex: 1 0 25%;
+  max-width: 25%;
+}
+
+
+@media (min-width: 1200px) and (max-width: 1250px) {
+  .image-navbar {
+    width:150px;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 500px) {
+  .image-navbar {
+    width:85px;
+  }
+}
+
+
+/* hide arrow from input number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Works for Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
