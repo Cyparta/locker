@@ -69,10 +69,14 @@ const Shop = () => {
     right: false,
   });
   const [isExpand, setIsExpand] = useState(true);
-  const [Index, setIndex] = useState(0);
-  const toggleExpand = (e, index) => {
+  const [expand, setEpand] = useState(true);
+  const toggleExpand = () => {
     setIsExpand(!isExpand);
-    setIndex(index)
+    
+  };
+  const togglePackage = () => {
+    setEpand(!expand)
+    
   };
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -266,19 +270,19 @@ const Shop = () => {
                         >
                           Packages
                         </Typography>
-                        {isExpand ? (
+                        {expand ? (
                           <KeyboardArrowDownIcon
-                            onClick={toggleExpand}
+                            onClick={togglePackage}
                             sx={{ cursor: "pointer" }}
                           />
                         ) : (
                           <KeyboardArrowRightIcon
-                            onClick={toggleExpand}
+                            onClick={togglePackage}
                             sx={{ cursor: "pointer" }}
                           />
                         )}
                       </Box>
-                      {isExpand ? (
+                      {expand ? (
                         <FormControlLabel
                           control={
                             <Checkbox

@@ -166,7 +166,7 @@ const Product = () => {
         desc={`Shop ${items.product_name} product meat at Grays and Danny's. We offer high-quality beef, pork, chicken, and more, sourced from local farms and raised with care. Our meats are expertly prepared and delivered fresh to your door, so you can enjoy the best-tasting and healthiest meats available. With fast and reliable shipping, easy returns, and exceptional customer service, Grays and Danny's is your one-stop online destination for all your meat needs.`}
       />
       <Box mt="17px">
-        <Container>
+        <Container maxWidth="xl">
           {/*---- hero title ----*/}
           <Box mb="8px">
             <HeroTitle crumbs={crumbs} />
@@ -371,7 +371,7 @@ const Product = () => {
                 <Button
                   sx={{
                     background:
-                      "linear-gradient(114.83deg, #6E2E02 -19.62%, #CC8648 100%)",
+                      "#9B1D08",
                     color: "#fff",
                     width: "100%",
                     borderRadius: "10px",
@@ -421,7 +421,7 @@ const Product = () => {
               </Box>
             </Grid>
 
-            <Grid item xs={12} md={4} className="line">
+            {/* <Grid item xs={12} md={4} className="line">
               {shippingInfo.map((info) => {
                 return (
                   <Box mb="25px">
@@ -452,7 +452,7 @@ const Product = () => {
                   </Box>
                 );
               })}
-            </Grid>
+            </Grid> */}
           </Grid>
 
           {/* Product details */}
@@ -468,7 +468,7 @@ const Product = () => {
                 mt: "30px",
               }}
             >
-              Similar
+              Related
             </Typography>
             <Box>
               <Slider {...settings}>
