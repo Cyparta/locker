@@ -1,6 +1,6 @@
 // const BASEURL = "http://192.168.1.12:9000/";
-const BASEURL = "https://stingray-app-ojidz.ondigitalocean.app/";
-// const BASEURL = "https://api.floridahalalmeat.com/";
+// const BASEURL = "https://stingray-app-ojidz.ondigitalocean.app/";
+const BASEURL = "https://api.floridahalalmeat.com/";
 const HostPayment = "http://localhost:3000/";
 
 // https://api.floridahalalmeat.com/

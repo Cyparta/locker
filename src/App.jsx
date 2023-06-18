@@ -31,6 +31,9 @@ import Aqqiqa from "./pages/aqqiqa/aqqiqa";
 import Odhiah from "./pages/odhiha/odhiha";
 import AddressSave from "./components/profile/addressSave";
 import AddressSection from "./components/profile/addressSection";
+import Order from "./pages/profile/order";
+import OrderDetails from "./pages/profile/[order]";
+import Address from "./pages/profile/address";
 
 function App() {
   const location = useLocation();
@@ -92,6 +95,9 @@ function App() {
           <Route path="/aqqeqa/:id" element={<Product />} />
           {/* <Route path="/shop" element={<Shop />} /> */}
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/order" element={<Order />} />
+          <Route path="/profile/order/:id" element={<OrderDetails />} />
+          <Route path="/profile/address" element={<Address />} />
           
             <Route path="/profile/address" element={<Profile active={2} />}/>
           
