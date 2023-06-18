@@ -28,17 +28,19 @@ const Contact = () => {
     bgcolor: "#F3E6D8",
     mt: "100px",
     width:"100%",
-    height:"129px",
     display:"flex",
     justifyContent:"center",
-    flexDirection:"column"
+    flexDirection:"column",
+    pt:"33px"
   };
   const mainCardStyle={
     display:"flex",
-    flexDirection:"row",
-    justifyContent:"space-between",
+    height:"100%",
+    flexDirection:{lg:"row",md:"row",sm:"column",xs:"column"},
+    justifyContent:{xl:"space-between"},
+   
   }
-  const cardStyle={display:"flex",flexDirection:"row",justifyContent:"center"}
+  const cardStyle={display:"flex",flexDirection:"row",justifyContent:"center",height:"129px",}
   const iconStyle={color:"#fff",bgcolor:"#8F5147",boxShadow:"0px 4px 40px rgba(155, 29, 8, 0.08)",height:"64px",width:"64px",justifyContent:"center",display:"flex",flexDirection:"column",borderRadius:"50%",mr:"17px"}
   const titleStyle={fontSize:"12px",color:"#9D9D9D",fontWeight:500}
   const StateStyle={fontSize:"16px",lineHeight:"48px",color:"#121212",fontWeight:700,letterSpacing:"-1.5%"}

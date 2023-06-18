@@ -12,6 +12,7 @@ const BasicPagination = ({allProducts, data}) => {
       sx={{
         display: "flex",
         justifyContent: "center",
+        height:"37.84px",
         mb: "50px",
         "& .MuiPaginationItem-root": { color: "red" },
         "& .Mui-selected": {
@@ -20,12 +21,25 @@ const BasicPagination = ({allProducts, data}) => {
         "& .MuiPaginationItem-outlined": {
           color: "#000",
           border: "none",
+          width:" 40.09px",
+          height:"37.84px",
         },
         "& .MuiPaginationItem-previousNext": {
           background: "#EBEBEB",
-          color: "#6E2E02",
+          color: "#121212",
           borderRadius: "8px",
+          width:" 40.09px",
+          padding:"10px, 10px, 8px, 10px"
         },
+        ".Mui-selected":{
+          backgroundColor:"#5F5F5F",
+          color:"#FFF",
+          borderRadius: "8px",
+          ":hover":{
+            backgroundColor:"#5F5F5F",
+          }
+         
+        }
       }}
     >
       <Pagination

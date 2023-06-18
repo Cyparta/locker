@@ -58,7 +58,7 @@ const Categorey = ({collection, cate, type, name}) => {
       <ul style={{ listStyle: "none", padding: "0", margin: "0" }}>
         {isExpand && (
           <>
-            <FormControl sx={{ paddingLeft: "25px" }}>
+            <FormControl sx={{ paddingLeft: "12px" }}>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 name="radio-buttons-group"

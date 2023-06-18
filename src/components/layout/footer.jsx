@@ -43,11 +43,13 @@ const NavItem = styled("li")({
 const footerStyle = {
   backgroundImage: `url('${Fotter}')`,
   backgroundRepeat: "no-repeat",
-  height: "400px",
+  height: {xl:"400px"},
   backgroundSize: "cover",
   display:"flex",
-  flexDirection:"row",
-  justifyContent:"space-between",
+  flexWrap:{md:"wrap"},
+  flexDirection:{xl:"row",lg:"row",md:"row",sm:"column",xs:"column"},
+  justifyContent:{xl:"space-between",xs:"center"},
+  
 };
 const imgStyle={
   mt:"80px",

@@ -6,6 +6,7 @@ export const getMeat = createAsyncThunk("getMeat", async (data, ThunkApi) => {
   const {  cate, search, limit, page, ordering } =
     ThunkApi.getState().shop.data;
   const rangeValue = ThunkApi.getState().shop.rangeValue;
+  console.log(rangeValue)
   try {
     const response = await axios.get(
       `${BASEURL}products/?collection_id=${cate}&search=${search}&limit=${limit}&offset=${
@@ -59,6 +60,7 @@ export const shopSlice = createSlice({
       state.data[name] = value;
     },
     setRange: (state, action) => {
+      console.log(action.payload);
       state.rangeValue = action.payload;
     },
   },

@@ -40,8 +40,8 @@ const BestSeller = () => {
     const headerStyle={display:"flex",justifyContent:"space-between",flexDirection:"row",marginBottom:"24px"}
     const titleStyle={fontSize:"32px",lineHeight:"48px",fontWeight:700,letterSpacing:"-1.5%"}
     const seeMoreStyle={fontSize:"16px",lineHeight:"48px",fontWeight:700,letterSpacing:"-1.5%",color:"#9B1D08"}
-    const mainSellerStyle={display:"flex",justifyContent:"space-between",flexDirection:{xl:"row",lg:"row",md:"row",sm:"column",xs:"column"},width:"100%"}
-    const cardSellStyle={display:"flex",flexDirection:"column",gap:2,width:"24%"}
+    const mainSellerStyle={display:"flex",justifyContent:"space-between",flexDirection:{xl:"row",lg:"row",md:"row",sm:"column",xs:"column"},flexWrap:{md:"wrap"},width:"100%"}
+    const cardSellStyle={display:"flex",flexDirection:"column",gap:2,width:{xl:"24%",md:"48%",sm:"100%",xs:"100%"}}
     const sellTitle={fontSize:"18px",fontWeight:600,lineHeight:"21.33px",letterSpacing:"-0.24px"}
     const sellDesc={fontSize:"16px",fontWeight:400,lineHeight:"18.96px",letterSpacing:"-0.41px",color:"#BDBDBD"}
     const sellPrice={fontSize:"12px",fontWeight:600,lineHeight:"14.22px",letterSpacing:"-0.24 px",color:"#00011F"}

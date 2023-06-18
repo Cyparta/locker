@@ -26,6 +26,7 @@ const Data=[
             xs:"100%"
         },
         border: "16px solid #F3E6D8",
+        marginBottom:{sm:"24px",xs:"24px"},
         textAlign:"center",
         display:"flex",
         flexDirection:"column",
@@ -54,7 +55,7 @@ const Data=[
             sm:"column",
             xs:"column",
         },
-        flexWrap:"wrap",
+        
         mx:"auto"
     }
     const ButtonStyle={

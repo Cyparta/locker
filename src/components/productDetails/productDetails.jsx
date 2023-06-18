@@ -9,11 +9,10 @@ const ProductDetails = ({items}) => {
               sx={{
                 fontSize: "20px",
                 fontWeight: "600",
-                color: "#6E2E02",
-                paddingLeft: "50px",
+                color: "linearGradient(114.83deg, #6E2E02 -19.62%, #CC8648 100%)",
               }}
             >
-              Overview
+              Description
             </Typography>
           </Box>
           <Box sx={{ paddingRight: { sm: "50px" } }}>

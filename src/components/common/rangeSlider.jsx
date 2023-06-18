@@ -1,8 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useDispatch, useSelector } from "react-redux";
 import { getMeat, setRange } from "../../store/shop/shopSlice";
 import { Button, Input, InputBase, TextField, Typography } from "@mui/material";
@@ -27,35 +25,24 @@ export default function RangeSlider() {
     },
   };
   const handlePrice=(startRange,endRange)=>{
-    dispatch(setRange(startRange,endRange));
+    console.log(startRange,endRange)
+    dispatch(setRange([startRange,endRange]));
           dispatch(getMeat());
   }
-  const [isExpand, setIsExpand] = useState(true);
+ 
 
-  const toggleExpand = () => {
-    setIsExpand(!isExpand);
-  };
+ 
 
   return (
     <Box sx={{ mb: "10px" }}>
-      {isExpand ? (
-          <KeyboardArrowDownIcon
-            onClick={toggleExpand}
-            sx={{ cursor: "pointer" }}
-          />
-        ) : (
-          <KeyboardArrowRightIcon
-            onClick={toggleExpand}
-            sx={{ cursor: "pointer" }}
-          />
-        )}
+      
       <Box
-        sx={{ display: "flex", flexDirection: "row", justifyContent: "start" }}
+        sx={{ display: "flex", flexDirection: "row", justifyContent: "start" ,flexWrap:{md:"wrap",xs:"wrap",gap:3}}}
       >
         <TextField
           inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           sx={priceStyle}
-          value={rangValue}
+          value={startRange}
           onChange={(e)=>{setStartRange(e.target.value)}}
         />
         <Typography
@@ -66,12 +53,12 @@ export default function RangeSlider() {
         <TextField
           inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           sx={priceStyle}
-          value={rangValue}
+          value={endRange}
           onChange={(e)=>{setEndRange(e.target.value)}}
         />
         <Button
           sx={{ border: "none", color: "#9B1D08", textDecoration: "underline" }}
-          onClick={()=>handlePrice}
+          onClick={()=>handlePrice(startRange,endRange)}
         >
           Go
         </Button>
