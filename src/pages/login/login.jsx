@@ -13,6 +13,7 @@ import PageMeta from "../../components/layout/PageMeta";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
+import { clearItems } from "../../store/cart/cartSlice";
 // import { BASEURL } from "../../data/API";
 
 const Login = () => {
@@ -49,6 +50,8 @@ const Login = () => {
     onSubmit: (values) => {
       const { email, password } = values;
       dispatch(postLogin({ email, password }));
+      dispatch(clearItems())
+      localStorage.removeItem("tokenGuest")
       if (user.length > 0) {
         setTimeout(() => {
           navigate("/home");

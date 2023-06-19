@@ -17,6 +17,7 @@ import {
   setCheckedSavedAdress,
   setRetail,
   updateForm,
+  postForm
 } from "../../store/shipping/shippingSlice";
 import { countries } from "../../data/country";
 
@@ -51,7 +52,7 @@ const ShippingForm = ({ onSubmit, checked }) => {
   // Change Forms inputs And update Form
   const handleChange = (e) => {
     const { name, value } = e.target;
-    dispatch(updateForm({ name, value }));
+    dispatch(postForm({ name, value }));
   };
 
   return (

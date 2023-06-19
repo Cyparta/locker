@@ -6,9 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import QuantityCart from "./quantityCart";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../../utils/foramtPrice";
+import { deleteGuestCart } from "../../store/guestCart/guestCartSlice";
 
 const CartProduct = ({ id, quantity, product, subtotal_price }) => {
   const { is_wholesale } = useSelector((state) => state.cart);
+
+  const guestToken = useSelector((state) => state.guestCart.cartID);
 
   const dispatch = useDispatch();
   const { image, product_name, id: productID } = product;
@@ -51,12 +54,23 @@ const CartProduct = ({ id, quantity, product, subtotal_price }) => {
 
         <QuantityCart quantity={quantity} id={id} />
       </Box>
-      <Box
-        sx={{ cursor: "pointer", mt: "8px" }}
-        onClick={() => dispatch(deleteCart(id))}
-      >
-        <img src={trash} alt="trash" />
-      </Box>
+
+      {guestToken && (
+        <Box
+          sx={{ cursor: "pointer", mt: "8px" }}
+          onClick={() => dispatch(deleteGuestCart(id))}
+        >
+          <img src={trash} alt="trash" />
+        </Box>
+      )}
+      {!guestToken && (
+        <Box
+          sx={{ cursor: "pointer", mt: "8px" }}
+          onClick={() => dispatch(deleteCart(id))}
+        >
+          <img src={trash} alt="trash" />
+        </Box>
+      )}
     </Box>
   );
 };

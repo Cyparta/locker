@@ -84,9 +84,15 @@ function Navbar() {
   const { items } = useSelector((state) => state.cart);
   const { total_price } = useSelector((state) => state.cart);
 
+  const {
+    items: guest,
+    total_price: guest_price,
+  } = useSelector((state) => state.guestCart);
+
   // token
   // const token = localStorage.getItem("token");
   const token = useSelector((state) => state.user.user);
+  const guestToken = useSelector((state) => state.guestCart.cartID);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -364,14 +370,16 @@ function Navbar() {
                     color:"#121212"
                   }}
                 >
-                  {items?.length ? items.length : 0}
+                  {guestToken ? guest.length : items.length ? items.length : 0  }
                 </Typography>
-                {window.location.pathname !== "/wholesale" ? (
+                {!guestToken ? (
                   <Typography sx={{ fontSize: "16px", fontWeight: "600" ,color:"#121212"}}>
                     $ {total_price ? formatPrice(total_price) : "00.00"}
                   </Typography>
                 ) : (
-                  ""
+                  <Typography sx={{ fontSize: "16px", fontWeight: "600" ,color:"#121212"}}>
+                    $ {guest_price  ? formatPrice(guest_price ) : "00.00"}
+                  </Typography>
                 )}
                 {token?
                 <PersonOutlineIcon sx={{fontSize:"2rem",mx:2,color:"#000",cursor:"pointer"}} onClick={()=>navigate("/profile")}/> : 

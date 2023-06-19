@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 import RestoreOutlinedIcon from '@mui/icons-material/RestoreOutlined';
+import { clearItems } from "../../store/cart/cartSlice";
 const SideNav = () => {
   // Account Info
   const [activeCard, setActiveCard] = useState(1);
@@ -27,6 +28,7 @@ const SideNav = () => {
     localStorage.removeItem("token");
     dispatch(setUser(null));
     navigate("/login");
+    dispatch(clearItems());
   };
 
   const sideProfileNav = [

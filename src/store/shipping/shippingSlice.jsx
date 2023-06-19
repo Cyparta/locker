@@ -55,7 +55,7 @@ export const editShippingID = createAsyncThunk(
       const shipping = ThunkApi.getState().shipping.getShipping;
       const response = await axios.put(
         `${BASEURL}shippingaddress/${data}/`,
-        {...shipping},
+        { ...shipping },
         {
           headers: {
             Authorization: `JWT ${token}`,
@@ -153,6 +153,34 @@ export const postOrder = createAsyncThunk(
   }
 );
 
+export const postGuestOrder = createAsyncThunk(
+  "postGuestOrder",
+  async (data, ThunkApi) => {
+    const { delivery_date, delivery_time } = ThunkApi.getState().shipping;
+    try {
+      const cartID = ThunkApi.getState().guestCart.cartID;
+      const response = await axios.post(`${BASEURL}guestorders/`, {
+        // order_info: checked ? "Pickup from the branch" : "Delivery",
+        // order_info: "Delivery",
+        cart_id: cartID,
+        ...data,
+        delivery_date: delivery_date,
+        delivery_time: delivery_time,
+        name_of_the_business: null,
+        position_of_the_business: null,
+        address: null,
+        // delivery_date:null,
+        phone_number: null,
+        ein_number: null,
+      });
+
+      return response.data;
+    } catch (err) {
+      return ThunkApi.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 // https://stingray-app-ojidz.ondigitalocean.app/orders/
 
 const getLocalStoarge = () => {
@@ -190,6 +218,7 @@ const initialState = {
     ein_number: null,
   },
   getShipping: {},
+  emailContact:"",
   allShipping: [],
   indexOfShipping: 10,
 };
@@ -249,6 +278,9 @@ export const shippingSlice = createSlice({
         [action.payload.name]: action.payload.value,
       };
     },
+    setEmailContact(state, action) {
+      state.emailContact = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -319,14 +351,23 @@ export const shippingSlice = createSlice({
         state.errorDeliveryMsg = action.payload;
       });
 
-      builder
+    builder
       .addCase(editShippingID.pending, (state, action) => {})
       .addCase(editShippingID.fulfilled, (state, action) => {
         // state.getShipping = action.payload;
-        toast.success("your address saved")
+        toast.success("your address saved");
       })
       .addCase(editShippingID.rejected, (state, action) => {
         console.log(action);
+        state.errorDelivery = action.error.message;
+        state.errorDeliveryMsg = action.payload;
+      });
+
+    /* post order Guest */
+    builder
+      .addCase(postGuestOrder.pending, (state, action) => {})
+      .addCase(postGuestOrder.fulfilled, (state, action) => {})
+      .addCase(postGuestOrder.rejected, (state, action) => {
         state.errorDelivery = action.error.message;
         state.errorDeliveryMsg = action.payload;
       });
@@ -346,6 +387,7 @@ export const {
   setDeliveryTime,
   setErrorDeliveryMsg,
   setErrorMsg,
+  setEmailContact
 } = shippingSlice.actions;
 
 export default shippingSlice.reducer;

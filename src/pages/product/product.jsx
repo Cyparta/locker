@@ -1,4 +1,12 @@
-import { Container, Box, Stack, Typography, Button, Grid, TextField } from "@mui/material";
+import {
+  Container,
+  Box,
+  Stack,
+  Typography,
+  Button,
+  Grid,
+  TextField,
+} from "@mui/material";
 import HeroTitle from "../../components/layout/heroTitle";
 
 import productImg from "../../assets/productID/productID.png";
@@ -21,8 +29,8 @@ import {
   setValues,
   setWholesale,
 } from "../../store/cart/cartSlice";
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { setCartNav } from "../../store/global/globalSlice";
 import SideCart from "../../components/cart/sideCart";
 import PageMeta from "../../components/layout/PageMeta";
@@ -30,6 +38,12 @@ import ProductDetails from "../../components/productDetails/productDetails";
 import DialogCart from "../../components/productDetails/dialogCart";
 import ZebehaHalal from "../zebehaHala/zebehaHalal";
 import { Span } from "../../shared/style";
+
+import {
+  getGuestCart,
+  postCartGuest,
+  postItemToCart,
+} from "../../store/guestCart/guestCartSlice";
 
 const shippingInfo = [
   {
@@ -56,15 +70,14 @@ const Product = () => {
   const isOdhiah = location.pathname.includes("/odhiah");
   const isAqqeqa = location.pathname.includes("/aqqeqa");
 
-
-  console.log(isWholesale)
+  console.log(isWholesale);
 
   const { items, count } = useSelector((state) => state.productID);
   const { items: data } = useSelector((state) => state.products);
 
   // const token = localStorage.getItem("token");
-  const token = useSelector(state => state.user.user);
-
+  const token = useSelector((state) => state.user.user);
+  const tokenGuest = useSelector(state => state.guestCart.cartID);
 
   // open dialog if shipping is greater than 10
   const [open, setOpen] = useState(false);
@@ -77,8 +90,6 @@ const Product = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-
 
   useEffect(() => {
     dispatch(getProductID(param.id));
@@ -108,22 +119,53 @@ const Product = () => {
   //     navigate("/register");
   //   }
   // };
-  const {occassion} = useSelector(state => state.cart) 
+  const { occassion } = useSelector((state) => state.cart);
   const handleAddToCart = () => {
     if (token) {
       dispatch(setCartNav());
       dispatch(
-        postCart({ product_id: items.id, quantity: count, is_wholesale: false, occassion })
+        postCart({
+          product_id: items.id,
+          quantity: count,
+          is_wholesale: false,
+          occassion,
+        })
       ).then(() => {
         dispatch(getCart());
       });
       handleClose();
     } else {
-      navigate("/register");
-      handleClose();
+      // navigate("/register");
+      if (tokenGuest) {
+        dispatch(setCartNav());
+        dispatch(
+          postItemToCart({
+            product_id: items.id,
+            quantity: count,
+            is_wholesale: false,
+            occassion,
+            cartID: tokenGuest,
+          })
+        ).then(() => {
+          dispatch(getGuestCart());
+        });
+        handleClose();
+      } else {
+        dispatch(postCartGuest()).then((data) => {
+          dispatch(
+            postItemToCart({
+              product_id: items.id,
+              quantity: count,
+              is_wholesale: false,
+              occassion,
+              cartID: data.payload.id,
+            })
+          );
+        });
+        handleClose();
+      }
     }
   };
-  // console.log(isAqqeqa, isWholesale)
 
   const settings = {
     infinite: true,
@@ -172,7 +214,12 @@ const Product = () => {
           <Grid container spacing={3}>
             <Grid item xs={12} md={4} xl={6}>
               <Box>
-                <img src={items.image} alt={items.product_name} width="100%" height="420px" />
+                <img
+                  src={items.image}
+                  alt={items.product_name}
+                  width="100%"
+                  height="420px"
+                />
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -186,10 +233,7 @@ const Product = () => {
                     mt: "17px",
                   }}
                 >
-                  
-                 
-                    {items.product_name}
-                 
+                  {items.product_name}
                 </Typography>
 
                 {!isWholesale && (
@@ -332,9 +376,9 @@ const Product = () => {
                 <Box
                   sx={{
                     display: "flex",
-                    gap:2,
-                    flexDirection:"row",
-                    
+                    gap: 2,
+                    flexDirection: "row",
+
                     flexWrap: "wrap",
                     mt: "16px",
                   }}
@@ -344,78 +388,86 @@ const Product = () => {
                       display: "flex",
                       alignItems: "center",
                       border: "1px solid #9D9D9D",
-                      borderRadius:"12px",
-                      maxHeight:"48px",
-                      width:"80px",
-                      mt:"20px",
+                      borderRadius: "12px",
+                      maxHeight: "48px",
+                      width: "80px",
+                      mt: "20px",
                     }}
                   >
                     <span style={{ marginInline: "16px", fontWeight: "500" }}>
                       {count}
                     </span>
-                    <Box sx={{display:"flex",flexDirection:"column",maxHeight:"48px"}}>
-                      <ArrowDropUpIcon style={{fontSize:"1.5rem",color:"#9B1D08"}} onClick={() => dispatch(setCount({ type: "inc" }))}/>
-                      <ArrowDropDownIcon style={{fontSize:"1.5rem",color:"#9B1D08"}} onClick={() => dispatch(setCount({ type: "dec" }))}/>
-                   
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        maxHeight: "48px",
+                      }}
+                    >
+                      <ArrowDropUpIcon
+                        style={{ fontSize: "1.5rem", color: "#9B1D08" }}
+                        onClick={() => dispatch(setCount({ type: "inc" }))}
+                      />
+                      <ArrowDropDownIcon
+                        style={{ fontSize: "1.5rem", color: "#9B1D08" }}
+                        onClick={() => dispatch(setCount({ type: "dec" }))}
+                      />
                     </Box>
                   </Box>
-                
 
-                <Button
-                  sx={{
-                    background:
-                      "#9B1D08",
-                    color: "#fff",
-                    width: "60%",
-                    borderRadius: "10px",
-                    padding: "10px 0",
-                    textTransform: "capitalize",
-                    fontSize: "16px",
-                    fontWeight: "400",
-                    letterSpacing: "-0.24px",
-                    mt: "20px",
-                    ":hover":{
-                      background:
-                      "#9B1D08",
-                    }
-                  }}
-                  onClick={() => {
-                    // if (isWholesale) {
-                    //   if (localStorage.getItem("token")) {
-                    //     dispatch(setCartNav());
-                    //     dispatch(
-                    //       postCart({ product_id: items.id, quantity: count, is_wholesale: false })
-                    //     ).then(() => {
-                    //       dispatch(getCart());
-                    //     });
-                    //   } else {
-                    //     navigate("/register");
-                    //   }
+                  <Button
+                    sx={{
+                      background: "#9B1D08",
+                      color: "#fff",
+                      width: "60%",
+                      borderRadius: "10px",
+                      padding: "10px 0",
+                      textTransform: "capitalize",
+                      fontSize: "16px",
+                      fontWeight: "400",
+                      letterSpacing: "-0.24px",
+                      mt: "20px",
+                      ":hover": {
+                        background: "#9B1D08",
+                      },
+                    }}
+                    onClick={() => {
+                      // if (isWholesale) {
+                      //   if (localStorage.getItem("token")) {
+                      //     dispatch(setCartNav());
+                      //     dispatch(
+                      //       postCart({ product_id: items.id, quantity: count, is_wholesale: false })
+                      //     ).then(() => {
+                      //       dispatch(getCart());
+                      //     });
+                      //   } else {
+                      //     navigate("/register");
+                      //   }
 
-                    // } else {
-                    //   handleClickOpen();
-                    // }
+                      // } else {
+                      //   handleClickOpen();
+                      // }
 
-                    // if (isWholesale) {
-                    //   // handleAddToCart(true, 'Normal')
-                    //   handleClickOpen();
-                    // } else if (isRetail) {
-                    //   // handleAddToCart(false, 'Normal')
-                    //   handleClickOpen();
-                    // } else if (isAqqeqa) {
-                    //   // handleAddToCart(false, 'Aqiqqa')
-                    //   //   handleClickOpen();
-                    //   // console.log("")
-                    //   handleClickOpen();
-                    // } else {
-                    //   // handleAddToCart(false, 'Odhiah')
-                    //   handleClickOpen();
-                    // }
-                    handleAddToCart()
-                  }}
-                >
-                  add to cart
-                </Button>
+                      // if (isWholesale) {
+                      //   // handleAddToCart(true, 'Normal')
+                      //   handleClickOpen();
+                      // } else if (isRetail) {
+                      //   // handleAddToCart(false, 'Normal')
+                      //   handleClickOpen();
+                      // } else if (isAqqeqa) {
+                      //   // handleAddToCart(false, 'Aqiqqa')
+                      //   //   handleClickOpen();
+                      //   // console.log("")
+                      //   handleClickOpen();
+                      // } else {
+                      //   // handleAddToCart(false, 'Odhiah')
+                      //   handleClickOpen();
+                      // }
+                      handleAddToCart();
+                    }}
+                  >
+                    add to cart
+                  </Button>
                 </Box>
               </Box>
             </Grid>
