@@ -4,14 +4,13 @@ import { toast } from "react-toastify";
 import { BASEURL } from "../../data/API";
 import jwt_decode from "jwt-decode";
 
-
 const today = new Date();
 const dayAfterTomorrow = new Date();
 dayAfterTomorrow.setDate(today.getDate() + 2);
 
 const year = dayAfterTomorrow.getFullYear();
-const month = String(dayAfterTomorrow.getMonth() + 1).padStart(2, '0');
-const day = String(dayAfterTomorrow.getDate()).padStart(2, '0');
+const month = String(dayAfterTomorrow.getMonth() + 1).padStart(2, "0");
+const day = String(dayAfterTomorrow.getDate()).padStart(2, "0");
 
 const formattedDate = `${year}-${month}-${day}`;
 export const getShipping = createAsyncThunk(
@@ -30,6 +29,47 @@ export const getShipping = createAsyncThunk(
     }
   }
 );
+
+export const getShippingID = createAsyncThunk(
+  "getShippingID",
+  async (data, ThunkApi) => {
+    try {
+      const token = ThunkApi.getState().user.user;
+      const response = await axios.get(`${BASEURL}shippingaddress/${data}/`, {
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      });
+      return response.data;
+    } catch (err) {
+      return ThunkApi.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const editShippingID = createAsyncThunk(
+  "editShippingID",
+  async (data, ThunkApi) => {
+    try {
+      const token = ThunkApi.getState().user.user;
+      const shipping = ThunkApi.getState().shipping.getShipping;
+      const response = await axios.put(
+        `${BASEURL}shippingaddress/${data}/`,
+        {...shipping},
+        {
+          headers: {
+            Authorization: `JWT ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      return ThunkApi.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+// /shippingaddress/1/
 
 export const deleteShipping = createAsyncThunk(
   "deleteShipping",
@@ -57,7 +97,7 @@ export const postShipping = createAsyncThunk(
       const decoded = jwt_decode(token);
       const response = await axios.post(
         `${BASEURL}shippingaddress/`,
-        { ...data, customer: decoded.user_id,  },
+        { ...data, customer: decoded.user_id },
         {
           headers: {
             Authorization: `JWT ${token}`,
@@ -76,8 +116,8 @@ export const postShipping = createAsyncThunk(
 export const postOrder = createAsyncThunk(
   "postOrder",
   async (data, ThunkApi) => {
-    console.log(ThunkApi.getState().shipping)
-    const {delivery_date, delivery_time} = ThunkApi.getState().shipping
+    console.log(ThunkApi.getState().shipping);
+    const { delivery_date, delivery_time } = ThunkApi.getState().shipping;
     try {
       // const decoded = jwt_decode(token);
 
@@ -92,12 +132,12 @@ export const postOrder = createAsyncThunk(
           ...data,
           delivery_date: delivery_date,
           delivery_time: delivery_time,
-          name_of_the_business:null,
-          position_of_the_business:null,
-          address:null,
+          name_of_the_business: null,
+          position_of_the_business: null,
+          address: null,
           // delivery_date:null,
-          phone_number:null,
-          ein_number: null
+          phone_number: null,
+          ein_number: null,
         },
         {
           headers: {
@@ -125,8 +165,8 @@ const initialState = {
   loading: false,
   error: null,
   errorMsg: null,
-  errorDelivery :null,
-  errorDeliveryMsg :null,
+  errorDelivery: null,
+  errorDeliveryMsg: null,
   items: [],
   checked: false,
   checkedSavedAdress: null,
@@ -144,11 +184,12 @@ const initialState = {
     postal_code: "",
     governoate: "",
     phone: "",
-    name_of_the_business:null,
+    name_of_the_business: null,
     position_of_the_business: null,
-    phone_number:null,
+    phone_number: null,
     ein_number: null,
   },
+  getShipping: {},
   allShipping: [],
   indexOfShipping: 10,
 };
@@ -158,6 +199,10 @@ export const shippingSlice = createSlice({
   initialState,
   reducers: {
     updateForm(state, action) {
+      const { name, value } = action.payload;
+      state.getShipping[name] = value;
+    },
+    postForm(state, action) {
       const { name, value } = action.payload;
       state.shipping[name] = value;
     },
@@ -196,11 +241,14 @@ export const shippingSlice = createSlice({
       state.delivery_time = action.payload;
     },
     setErrorDeliveryMsg(state, action) {
-      state.errorDelivery = action.payload
+      state.errorDelivery = action.payload;
     },
     setErrorMsg(state, action) {
-      state.errorMsg = {...state.errorMsg, [action.payload.name]:action.payload.value}
-    }
+      state.errorMsg = {
+        ...state.errorMsg,
+        [action.payload.name]: action.payload.value,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -253,7 +301,32 @@ export const shippingSlice = createSlice({
       .addCase(postOrder.pending, (state, action) => {})
       .addCase(postOrder.fulfilled, (state, action) => {})
       .addCase(postOrder.rejected, (state, action) => {
-        console.log(action)
+        console.log(action);
+        state.errorDelivery = action.error.message;
+        state.errorDeliveryMsg = action.payload;
+      });
+
+    /* GET SHIPPING with ID */
+    builder
+      .addCase(getShippingID.pending, (state, action) => {})
+      .addCase(getShippingID.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.getShipping = action.payload;
+      })
+      .addCase(getShippingID.rejected, (state, action) => {
+        console.log(action);
+        state.errorDelivery = action.error.message;
+        state.errorDeliveryMsg = action.payload;
+      });
+
+      builder
+      .addCase(editShippingID.pending, (state, action) => {})
+      .addCase(editShippingID.fulfilled, (state, action) => {
+        // state.getShipping = action.payload;
+        toast.success("your address saved")
+      })
+      .addCase(editShippingID.rejected, (state, action) => {
+        console.log(action);
         state.errorDelivery = action.error.message;
         state.errorDeliveryMsg = action.payload;
       });
@@ -261,6 +334,7 @@ export const shippingSlice = createSlice({
 });
 
 export const {
+  postForm,
   updateForm,
   clearForm,
   setChecked,
@@ -271,7 +345,7 @@ export const {
   setDeliveryDate,
   setDeliveryTime,
   setErrorDeliveryMsg,
-  setErrorMsg
+  setErrorMsg,
 } = shippingSlice.actions;
 
 export default shippingSlice.reducer;

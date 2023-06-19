@@ -14,7 +14,7 @@ const HeroTitle = ({ crumbs = [] }) => {
                 style={{
                   opacity: "0.5",
                   color: "#212121",
-                  opacity: !crumb.active && "0.5",
+                  opacity: crumb.active && "0.5",
                 }}
               >
                 {crumb.label}

@@ -81,6 +81,7 @@ const SideNav = () => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  borderRadius:0
                 }}
                 onClick={() => setActiveCard(index + 1)}
               >

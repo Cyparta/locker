@@ -62,13 +62,13 @@ const OrderDetails = () => {
                 Grid container
             -----
         */}
-        <Grid container spacing={4} mb="48px" mt="40px">
+        <Grid container spacing={4} mb="48px" sx={{mt: {xs: "1px", sm: "40px"}}}>
           {/* col 1 */}
-          <Grid item xs={12} sm={3}>
+          <Grid item sm={4} md={3}>
             <SideNav />
           </Grid>
           {/* col 2 */}
-          <Grid item xs={12} sm={9}>
+          <Grid item sm={8} md={9}>
             <Box>
               <>
                 <ProfileCard

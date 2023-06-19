@@ -24,7 +24,8 @@ const Order = () => {
 
   const crumbs = [
     { label: "Home", link: "/", active: false },
-    { label: "profile", link: "/profile", active: true },
+    { label: "profile", link: "/profile", active: false },
+    { label: "order", link: "/profile/order", active: true },
   ];
 
   useEffect(() => {
@@ -36,24 +37,32 @@ const Order = () => {
       <PageMeta title={`Grays and Danny's `} desc="user profile" />
       <Box>
         {/* hero Title */}
-        <Box mt="32px" ml="80px">
+        <Box mt="32px" sx={{ ml: { xs: "20px", sm: "80px" } }}>
           <HeroTitle crumbs={crumbs} />
         </Box>
         {/* -----
              Grid container
             -----
         */}
-        <Grid container spacing={5} mb="48px" mt="48px">
+        <Grid
+          container
+          spacing={5}
+          mb="48px"
+          sx={{ mt: { xs: "1px", sm: "40px" } }}
+        >
           {/* col 1 */}
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={4} md={3}>
             <SideNav />
           </Grid>
           {/* col 2 */}
-          <Grid item xs={12} sm={9}>
+          <Grid item xs={12} sm={8} md={9}>
             <Box>
               <>
                 {orders?.map((order) => (
-                  <ProfileCard mb="24px" sx={{ width: "88%" }}>
+                  <ProfileCard
+                    mb="24px"
+                    sx={{ mb: "24px", width: "88%", mx: { xs: "auto", sm: 0 } }}
+                  >
                     <Box
                       sx={{
                         display: "flex",
