@@ -1,4 +1,4 @@
-import { Container, Box, Stack, Typography, Button, Grid } from "@mui/material";
+import { Container, Box, Stack, Typography, Button, Grid, TextField } from "@mui/material";
 import HeroTitle from "../../components/layout/heroTitle";
 
 import productImg from "../../assets/productID/productID.png";
@@ -21,6 +21,8 @@ import {
   setValues,
   setWholesale,
 } from "../../store/cart/cartSlice";
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { setCartNav } from "../../store/global/globalSlice";
 import SideCart from "../../components/cart/sideCart";
 import PageMeta from "../../components/layout/PageMeta";
@@ -76,30 +78,11 @@ const Product = () => {
     setOpen(false);
   };
 
-  const test = () => {
-    if (isOdhiah) {
-      dispatch(setValues("Odhiah"));
-      dispatch(setWholesale(false));
-      setType(false);
-    } else if (isAqqeqa) {
-      dispatch(setValues("Aqiqqa"));
-      dispatch(setWholesale(false));
-      setType(false);
-    } else if (isRetail) {
-      dispatch(setValues("Normal"));
-      setType(false);
-      dispatch(setWholesale(false));
-    } else {
-      dispatch(setValues("Normal"));
-      setType(true);
-      dispatch(setWholesale(true));
-    }
-  };
+
 
   useEffect(() => {
     dispatch(getProductID(param.id));
     dispatch(getProducts());
-    test();
   }, [param.id, isWholesale]);
 
   const crumbs = [
@@ -108,24 +91,38 @@ const Product = () => {
     { label: items.product_name, link: `/${items.product_name}`, active: true },
   ];
 
-  const handleAddToCart = (is_wholesale, occ) => {
-    if (localStorage.getItem("token")) {
+  // const handleAddToCart = (is_wholesale, occ) => {
+  //   if (localStorage.getItem("token")) {
+  //     dispatch(setCartNav());
+  //     dispatch(
+  //       postCart({
+  //         product_id: items.id,
+  //         quantity: count,
+  //         is_wholesale: is_wholesale,
+  //         occassion: occ,
+  //       })
+  //     ).then(() => {
+  //       dispatch(getCart());
+  //     });
+  //   } else {
+  //     navigate("/register");
+  //   }
+  // };
+  const {occassion} = useSelector(state => state.cart) 
+  const handleAddToCart = () => {
+    if (token) {
       dispatch(setCartNav());
       dispatch(
-        postCart({
-          product_id: items.id,
-          quantity: count,
-          is_wholesale: is_wholesale,
-          occassion: occ,
-        })
+        postCart({ product_id: items.id, quantity: count, is_wholesale: false, occassion })
       ).then(() => {
         dispatch(getCart());
       });
+      handleClose();
     } else {
       navigate("/register");
+      handleClose();
     }
   };
-
   // console.log(isAqqeqa, isWholesale)
 
   const settings = {
@@ -173,9 +170,9 @@ const Product = () => {
           </Box>
           {/*---- Grid Row ----*/}
           <Grid container spacing={3}>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} xl={6}>
               <Box>
-                <img src={items.image} alt={items.product_name} width="100%" />
+                <img src={items.image} alt={items.product_name} width="100%" height="420px" />
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -189,18 +186,10 @@ const Product = () => {
                     mt: "17px",
                   }}
                 >
-                  <img
-                    src={meatLogo}
-                    alt="meat"
-                    style={{
-                      marginRight: "8px",
-                      width: "36px",
-                      height: "27px",
-                    }}
-                  />
-                  <span>
-                    {items.product_name} {""} <sub>1 kg</sub>
-                  </span>
+                  
+                 
+                    {items.product_name}
+                 
                 </Typography>
 
                 {!isWholesale && (
@@ -214,7 +203,7 @@ const Product = () => {
                       lineHeight: "30px",
                     }}
                   >
-                    {items?.description}{" "}
+                    {items?.wholesale_description}{" "}
                   </Typography>
                 )}
 
@@ -236,7 +225,7 @@ const Product = () => {
                 {/* if we aren't in page wholesale don't show price */}
                 {!isWholesale && (
                   <>
-                    <Typography
+                    {/* <Typography
                       sx={{
                         display: "flex",
                         alignItems: "center",
@@ -256,14 +245,14 @@ const Product = () => {
                         <Typography
                           variant="span"
                           component="span"
-                          sx={{ color: "#CC8648" }}
+                          sx={{ color: "#9B1D08" }}
                         >
                           {items.price}
                           {items.unit_price} {"-"}
                           {items.max_price}
                         </Typography>
                       </Typography>
-                    </Typography>
+                    </Typography> */}
                     <Typography
                       sx={{
                         display: "flex",
@@ -285,11 +274,11 @@ const Product = () => {
                         }}
                         component="span"
                       >
-                        Deposit :{" "}
+                        Price :{" "}
                         <Typography
                           variant="span"
                           component="span"
-                          sx={{ color: "#CC8648" }}
+                          sx={{ color: "#9B1D08" }}
                         >
                           {items.deposite} $
                         </Typography>
@@ -315,7 +304,7 @@ const Product = () => {
                         <Typography
                           variant="span"
                           component="span"
-                          sx={{ color: "#CC8648" }}
+                          sx={{ color: "#9B1D08" }}
                         >
                           {items.delivery_time}Min
                         </Typography>
@@ -343,7 +332,9 @@ const Product = () => {
                 <Box
                   sx={{
                     display: "flex",
-                    alignItems: "center",
+                    gap:2,
+                    flexDirection:"row",
+                    
                     flexWrap: "wrap",
                     mt: "16px",
                   }}
@@ -352,28 +343,30 @@ const Product = () => {
                     sx={{
                       display: "flex",
                       alignItems: "center",
-                      flexWrap: "wrap",
+                      border: "1px solid #9D9D9D",
+                      borderRadius:"12px",
+                      maxHeight:"48px",
+                      width:"80px",
+                      mt:"20px",
                     }}
                   >
-                    <Span onClick={() => dispatch(setCount({ type: "dec" }))}>
-                      -
-                    </Span>
                     <span style={{ marginInline: "16px", fontWeight: "500" }}>
                       {count}
                     </span>
-
-                    <Span onClick={() => dispatch(setCount({ type: "inc" }))}>
-                      +
-                    </Span>
+                    <Box sx={{display:"flex",flexDirection:"column",maxHeight:"48px"}}>
+                      <ArrowDropUpIcon style={{fontSize:"1.5rem",color:"#9B1D08"}} onClick={() => dispatch(setCount({ type: "inc" }))}/>
+                      <ArrowDropDownIcon style={{fontSize:"1.5rem",color:"#9B1D08"}} onClick={() => dispatch(setCount({ type: "dec" }))}/>
+                   
+                    </Box>
                   </Box>
-                </Box>
+                
 
                 <Button
                   sx={{
                     background:
                       "#9B1D08",
                     color: "#fff",
-                    width: "100%",
+                    width: "60%",
                     borderRadius: "10px",
                     padding: "10px 0",
                     textTransform: "capitalize",
@@ -381,6 +374,10 @@ const Product = () => {
                     fontWeight: "400",
                     letterSpacing: "-0.24px",
                     mt: "20px",
+                    ":hover":{
+                      background:
+                      "#9B1D08",
+                    }
                   }}
                   onClick={() => {
                     // if (isWholesale) {
@@ -399,25 +396,27 @@ const Product = () => {
                     //   handleClickOpen();
                     // }
 
-                    if (isWholesale) {
-                      // handleAddToCart(true, 'Normal')
-                      handleClickOpen();
-                    } else if (isRetail) {
-                      // handleAddToCart(false, 'Normal')
-                      handleClickOpen();
-                    } else if (isAqqeqa) {
-                      // handleAddToCart(false, 'Aqiqqa')
-                      //   handleClickOpen();
-                      // console.log("")
-                      handleClickOpen();
-                    } else {
-                      // handleAddToCart(false, 'Odhiah')
-                      handleClickOpen();
-                    }
+                    // if (isWholesale) {
+                    //   // handleAddToCart(true, 'Normal')
+                    //   handleClickOpen();
+                    // } else if (isRetail) {
+                    //   // handleAddToCart(false, 'Normal')
+                    //   handleClickOpen();
+                    // } else if (isAqqeqa) {
+                    //   // handleAddToCart(false, 'Aqiqqa')
+                    //   //   handleClickOpen();
+                    //   // console.log("")
+                    //   handleClickOpen();
+                    // } else {
+                    //   // handleAddToCart(false, 'Odhiah')
+                    //   handleClickOpen();
+                    // }
+                    handleAddToCart()
                   }}
                 >
                   add to cart
                 </Button>
+                </Box>
               </Box>
             </Grid>
 

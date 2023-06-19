@@ -80,7 +80,7 @@ export const InputControl = styled(OutlinedInput)({
     background: "#fff",
     border: "1px solid #9D9D9D",
     borderRadius: "12px",
-  
+    
   "& label.Mui-focused": {
     color: "transparent",
   },
@@ -116,7 +116,7 @@ export const ProfileCard = styled(Box)({
  -------- 
 */
 export const MainButton = styled(Button)({
-  background: "linear-gradient(114.83deg, #6E2E02 -19.62%, #CC8648 100%)",
+  background: "#9B1D08",
   color: "#fff",
   width: "80%",
   borderRadius: "10px",
@@ -125,6 +125,9 @@ export const MainButton = styled(Button)({
   fontSize: "16px",
   fontWeight: "400",
   letterSpacing: "-0.24px",
+  ":hover":{
+    background:"#9B1D08"
+  }
 });
 
 export const GrayButton = styled(Button)({

@@ -125,6 +125,7 @@ const ShippingForm = ({ onSubmit, checked }) => {
             onChange={handleChange}
             disabled={checked}
             type="number"
+            sx={{borderRadius:"5px!important"}}
           />
           {errorMsg?.phone_number && (
             <span
@@ -148,6 +149,7 @@ const ShippingForm = ({ onSubmit, checked }) => {
             value={address}
             onChange={handleChange}
             disabled={checked}
+            sx={{borderRadius:"5px!important"}}
           />
           {errorMsg?.address && (
             <span
@@ -285,6 +287,7 @@ const ShippingForm = ({ onSubmit, checked }) => {
               value={city}
               onChange={handleChange}
               disabled={checked}
+              sx={{borderRadius:"5px!important"}}
             />
             {errorMsg?.city && (
               <span
@@ -309,6 +312,7 @@ const ShippingForm = ({ onSubmit, checked }) => {
               onChange={handleChange}
               type="number"
               disabled={checked}
+              sx={{borderRadius:"5px!important"}}
             />
             {errorMsg?.postal_code && (
               <span

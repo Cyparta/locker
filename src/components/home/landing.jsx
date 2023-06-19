@@ -14,7 +14,7 @@ const Landing = () => {
       container
       spacing={2}
      // sx={{ position: "relative", mt: { xs: "30px", md: "217px" }}}
-     sx={{width:"100%",mt:"0px",mx:"auto"}}
+     sx={{width:"100%",mt:"0px",mx:"auto",flexDirection:{xl:"row",lg:"row",md:"row",sm:"column-reverse",xs:"column-reverse"}}}
     >
       
 

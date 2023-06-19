@@ -320,12 +320,12 @@ const Shipping = () => {
                 variant="h4"
                 component="h3"
                 sx={{
-                  fontSize: "20px",
+                  fontSize: "18px",
                   fontWeight: "600",
                   marginLeft: "8px",
                 }}
               >
-                Shipping information
+                Delivery
               </Typography>
             </Box>
           )}
@@ -355,7 +355,7 @@ const Shipping = () => {
                   Saved Address
                 </Typography>
                 <Typography
-                  sx={{ color: "rgba(110, 46, 2, 1)", cursor: "pointer" }}
+                  sx={{ color: "#9B1D08", cursor: "pointer" }}
                   onClick={() => setIsAdd(!isAdd)}
                 >
                   + Add Latest Address
@@ -383,10 +383,10 @@ const Shipping = () => {
                         borderRadius: "5px",
                         color:
                           item.id === checkedSavedAdress &&
-                          "rgba(204, 134, 72, 1)",
+                          "#9B1D08",
                         borderColor:
                           item.id === checkedSavedAdress &&
-                          "rgba(204, 134, 72, 1)",
+                          "#9B1D08",
                         cursor: "pointer",
                       }}
                     >
@@ -512,14 +512,19 @@ const Shipping = () => {
             <Link to="/shop">
               {/* <ButtonBack>Back to Shopping</ButtonBack> */}
               <button
-                className="main-btn-outline"
+                
                 style={{
                   width: "auto",
                   padding: "12px 68px",
                   cursor: "pointer",
+                  color:"#9B1D08",
+                  fontSize:"16px",
+                  border: "2px solid #9B1D08",
+                  background:"#FFF",
+                  borderRadius:"14px",
                 }}
               >
-                Back to Shopping
+                Back to home
               </button>
             </Link>
           </Box>

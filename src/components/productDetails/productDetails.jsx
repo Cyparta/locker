@@ -4,12 +4,17 @@ import React from 'react';
 const ProductDetails = ({items}) => {
   return (
     <div>
-        <Box sx={{ background: "#F9FAFB", padding: "12px", mt: "50px" }}>
+        <Box sx={{ background: "#F9FAFB", padding: "12px", mt: "50px",borderBottom: "0.1px solid #353535 "}}>
             <Typography
               sx={{
                 fontSize: "20px",
                 fontWeight: "600",
-                color: "linearGradient(114.83deg, #6E2E02 -19.62%, #CC8648 100%)",
+                color: "#9B1D08",
+                // borderBottom: "3px solid",
+
+              "border-image-source":" linearRadient(114.83deg, #6E2E02 -19.62%, #CC8648 100%)"
+
+
               }}
             >
               Description
@@ -18,21 +23,21 @@ const ProductDetails = ({items}) => {
           <Box sx={{ paddingRight: { sm: "50px" } }}>
             <Typography
               sx={{
-                fontSize: "20px",
-                fontWeight: "600",
+                fontSize: "16px",
+                fontWeight: 500,
+                lineHeight:"19.5px",
+                letterSpacing:"-0.41 px",
                 mt: "32px",
-                mb: "16px",
+                mb: "80px",
               }}
             >
-              Product details
+              {items.description}
             </Typography>
-            <Typography sx={{ fontSize: "18px", fontWeight: "500", mb: "8px" }}>
-              Packaging Details:{" "}
-            </Typography>
-            <Typography sx={{ fontSize: "16px", fontWeight: "400" }}>
+           
+            {/* <Typography sx={{ fontSize: "16px", fontWeight: "400" }}>
               {items.packaging_details}{" "}
-            </Typography>
-            <Typography
+            </Typography> */}
+            {/* <Typography
               sx={{
                 fontSize: "18px",
                 fontWeight: "500",
@@ -114,7 +119,7 @@ const ProductDetails = ({items}) => {
                   </Box>
                 </Stack>
               </Box>
-            </Box>
+            </Box> */}
           </Box>
     </div>
   )

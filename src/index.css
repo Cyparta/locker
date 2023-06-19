@@ -224,3 +224,9 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+.slick-slide {
+  margin: 0 10px;
+}
+.slick-list {
+  margin: 0 -10px;
+}
