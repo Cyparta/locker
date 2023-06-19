@@ -159,12 +159,12 @@ const settings = {
                 </Box>
             ))}
             </Stack> */}
-            <Slider {...settings} sx={{'.slick-track':{height:'200px'}}}>
+            <Slider {...settings} style={{overflow: "hidden"}}>
           {items?.results?.map((item) => (
             <Box key={item.id} sx={cardStyle}>
             <Typography sx={{fontSize:"32px",fontWeight:700,lineHeight:"37.92px",letterSpacing:"-0.24 px",mb:"16px",mt:"20px"}}>{item.product_name}</Typography>
             <Divider width="80%" style={{marginLeft:"10%"}}/>
-            <Typography sx={{color:"#BDBDBD",mt:"16px",fontSize:"14px",fontWeight:400,lineHeight:"16.59px",mx:"25%"}}>{item.description}</Typography>
+            <Typography sx={{color:"#BDBDBD",mt:"16px",fontSize:"14px",fontWeight:400,lineHeight:"16.59px",mx:"25%"}}>{item.description.slice(0,50)}</Typography>
             <Box sx={buttonBoxStyle} >
                 <Typography component="span" sx={shapeLeftStyle} className="Left"></Typography>
             <Button sx={ButtonStyle}>{item.deposite}$</Button>

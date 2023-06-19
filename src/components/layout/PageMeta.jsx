@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-const PageMeta = ({ title, desc, name="grays and danny's",  type="product"}) => {
+const PageMeta = ({ title, desc, name="Papineau Locker",  type="product"}) => {
   return (
     <Helmet>
       <title>{title}</title>

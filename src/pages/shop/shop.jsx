@@ -360,7 +360,7 @@ const Shop = () => {
                         textAlign: "start",
                       }}
                     >
-                      {allProducts?.count} Matches found sss
+                      {allProducts?.count} Matches found
                     </Typography>
                     <Box sx={{ display: "flex", flexDirection: "row"}}>
                       <Typography sx={{ fontSize: "12px", fontWeight: "500" }}>

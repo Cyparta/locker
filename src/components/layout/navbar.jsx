@@ -59,7 +59,7 @@ const pages = [
 
   {
     name: "Contact Us",
-    to: "/contact",
+    to: "/#contact",
   },
 ];
 
@@ -114,19 +114,20 @@ function Navbar() {
     setState({ ...state, [anchor]: open });
   };
 
-  const textLogoStyle={fontSize:"24px",fontWeight:500,letterSpacing:"8%",color:"#9B1D08"}
+  const textLogoStyle={fontSize:"24px",fontWeight:500,letterSpacing:"8%",color:"#9B1D08",ml:"18px"}
   const loginButtonStyle={
     fontSize:"16px",
     fontWeight:500,
-    lineHeight:"18.96px",
     textAlign:"center",
     borderRadius:"14px",
-    padding:"10px",
+    display:"flex",
+    justifyContent:"center",
     height:"48px",
     width:"130px",
     bgcolor:"#9B1D08",
     color:"#fff",
     marginLeft:"22px",
+    pt:1.4
   }
 
   /*----- sidebar ----- */
@@ -197,7 +198,7 @@ function Navbar() {
             </Link>
           </Box>
         </Box>
-        {token && (
+        {token ? (
           <ListItem key={0} disablePadding>
             <ListItemButton>
               <Link
@@ -213,7 +214,7 @@ function Navbar() {
               </Link>
             </ListItemButton>
           </ListItem>
-        )}
+        ):
         <Box
           sx={{
             paddingInline: "16px",
@@ -233,6 +234,7 @@ function Navbar() {
             </MainButton>
           </Link>
         </Box>
+        }
       </List>
     </Box>
   );
@@ -265,7 +267,7 @@ function Navbar() {
               <Box
                 sx={{
                   flexGrow:1,
-                  mt:{xs:"20px"}
+                  mt:{xl:"5px",xs:"18px"}
                 }}
               >
                 <Link to="/">
@@ -452,7 +454,7 @@ function Navbar() {
                         
                         backgroundColor: "#fff",
                         borderRadius: "8px",
-                        marginTop:"-45px",
+                        marginTop:"-40px",
                         padding: "10px",
                         color: "#fff",
                         boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.2)",

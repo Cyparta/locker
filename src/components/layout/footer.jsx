@@ -15,7 +15,6 @@ import icons3 from "../../assets/home/vector3.svg";
 import appStore from "../../assets/home/appStore.png";
 import googlePlay from "../../assets/home/googlePlay.png";
 import send from "../../assets/home/send.svg";
-import cypartaLogo from "../../assets/icons/cypartaLogo.png";
 import { Link } from "react-router-dom";
 
 import { HashLink } from "react-router-hash-link";
@@ -28,6 +27,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import tiktok from '../../assets/home/tiktok.png'
+import cypartaLogo from '../../assets/home/cypartal logo.png'
 
 
 const NavbarNav = styled("ul")({
@@ -48,8 +48,9 @@ const footerStyle = {
   display:"flex",
   flexWrap:{lg:"wrap",md:"wrap"},
   flexDirection:{xl:"row",lg:"row",md:"row",sm:"column",xs:"column"},
-  justifyContent:{xl:"space-between",md:"space-between",xs:"center"},
-  width:"100%"
+  justifyContent:{xl:"space-between",lg:"space-between",md:"space-between",xs:"center"},
+  width:"100%",
+  gap:2
 };
 const imgStyle={
   mt:"80px",
@@ -320,11 +321,11 @@ const Footer = () => {
           <img src={logoFooter} alt="Logo Footer"/>
         </Box>
         <Box>
-          <Box sx={{display:"flex",justifyContent:{xs:"center"}}}>
+          <Box sx={{display:"flex",justifyContent:{xl:"start",xs:"center"}}}>
           <NavbarNav>
           <Typography sx={titleStyle}>Links</Typography>
                 <NavItem>
-                  <Link to="/retail">Contact Us</Link>
+                  <Link to={`/#contact`}>Contact Us</Link>
                 </NavItem>
                 <NavItem>
                   <Link to="/wholesale">Shop</Link>
@@ -344,7 +345,7 @@ const Footer = () => {
           <img src={tiktok} alt='Tictok' />
           </Box>
         </Box>
-        <Box sx={{display:"flex",alignItems:{xs:"center",flexDirection:"column"}}}>
+        <Box sx={{display:"flex",alignItems:{xs:"center",flexDirection:"column"},mr:{lg:"0%",md:"4%"}}}>
           <Typography sx={titleStyle}>Download App</Typography>
           <Box sx={{ display: "flex", gap:3, flexDirection:"column",mt:"16px" }}>
             <a href={PLAYSTORE} target="_blank" rel="noreferrer">
@@ -355,7 +356,7 @@ const Footer = () => {
             </a>
           </Box>
         </Box>
-        <Box sx={{mr:{xl:"15%",lg:"8%",md:"4%"},display:"flex",alignItems:{xs:"center",flexDirection:"column"}}}>
+        <Box sx={{mr:{xl:"15%",lg:"8%",md:"2%"} ,ml:{xl:"0",md:"4%"},display:"flex",alignItems:{xs:"center",flexDirection:"column"}}}>
           <Box sx={contactStyle}>
             <Typography sx={contactTitleStyle}>Keep in touch</Typography>
             <Typography sx={contactdescribeStyle}>Get exclusive offers , packages and free delivery</Typography>
@@ -385,6 +386,10 @@ const Footer = () => {
                   <img src={send} alt="send" />
                 </Button>
               </Box>
+          </Box>
+          <Box sx={{display:"flex",flexDirection:"row",alignItems:"center"}}>
+            <Typography sx={{pt:"15px"}}>Powered by : </Typography>
+            <img src={cypartaLogo} alt="cyparta logo"/>
           </Box>
         </Box>
       </Box>
