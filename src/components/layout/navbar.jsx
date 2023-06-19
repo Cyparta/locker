@@ -33,6 +33,7 @@ import { formatPrice } from "../../utils/foramtPrice";
 import { HashLink, NavHashLink } from "react-router-hash-link";
 import { MainButton } from "../../shared/style";
 import { useState } from "react";
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 const pages = [
   {
@@ -113,7 +114,7 @@ function Navbar() {
     setState({ ...state, [anchor]: open });
   };
 
-  const textLogoStyle={fontSize:"24px",fontWeight:500,lineHeight:"34.75px",letterSpacing:"8%",color:"#9B1D08"}
+  const textLogoStyle={fontSize:"24px",fontWeight:500,letterSpacing:"8%",color:"#9B1D08"}
   const loginButtonStyle={
     fontSize:"16px",
     fontWeight:500,
@@ -126,7 +127,6 @@ function Navbar() {
     bgcolor:"#9B1D08",
     color:"#fff",
     marginLeft:"22px",
-    my:"auto"
   }
 
   /*----- sidebar ----- */
@@ -264,8 +264,8 @@ function Navbar() {
               {/*------- logo in Tablet ---- */}
               <Box
                 sx={{
-                  flexGrow:1
-                  
+                  flexGrow:1,
+                  mt:{xs:"20px"}
                 }}
               >
                 <Link to="/">
@@ -373,13 +373,15 @@ function Navbar() {
                 ) : (
                   ""
                 )}
+                {token?
+                <PersonOutlineIcon sx={{fontSize:"2rem",mx:2,color:"#000",cursor:"pointer"}} onClick={()=>navigate("/profile")}/> : 
                  <Box
                   sx={loginButtonStyle}
                 >
                   {/* <Button sx={loginButtonStyle}> </Button> */}
                   <Link
                   
-                    to={token ? "/profile" : "/login"}
+                    to={"/login"}
                     aria-label="go to profile"
                   >
                     {/* <PersonOutlineOutlinedIcon /> */}
@@ -387,6 +389,7 @@ function Navbar() {
                   </Link>
                  
                 </Box>
+                }
                 {/*
               {token && (
                 <Box
@@ -435,7 +438,7 @@ function Navbar() {
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "space-between",
+                  justifyContent: "end",
                   width: "100%",
                 }}
               >
@@ -446,8 +449,10 @@ function Navbar() {
                       onClick={toggleDrawer(anchor, true)}
                       sx={{
                         display: { xs: "flex", lg: "none" },
+                        
                         backgroundColor: "#fff",
                         borderRadius: "8px",
+                        marginTop:"-45px",
                         padding: "10px",
                         color: "#fff",
                         boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.2)",
@@ -467,7 +472,7 @@ function Navbar() {
                     </Drawer>
                   </React.Fragment>
                 ))}
-                <Box
+                {/* <Box
                   sx={{
                     display: { xs: "flex", lg: "none" },
                     mr: 1,
@@ -484,8 +489,8 @@ function Navbar() {
                       className="image-navbar"
                     />
                   </Link>
-                </Box>
-                <Typography
+                </Box> */}
+                {/* <Typography
                   sx={{
                     color: "#fff",
                     // mt: "10px",
@@ -493,7 +498,7 @@ function Navbar() {
                   }}
                 >
                   <a href="tel:(863)-946-0936">(863)-946-0936</a>
-                </Typography>
+                </Typography> */}
               </Box>
             </Toolbar>
           </Container>

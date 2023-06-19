@@ -1,13 +1,56 @@
 import { Box, Button, Container, Divider, Stack, Typography } from '@mui/material'
 import React from 'react'
+import Slider from 'react-slick'
+import ProductItem from '../common/productItem'
+import SideCart from '../cart/sideCart'
+import { useSelector } from 'react-redux'
 
 const OurPackage = () => {
+
+const { items } = useSelector((state) => state.products);
+
 const Data=[
     {id:1,title:"The locker box",description:"Lorem ipsum dolor sit amet, cons ectetur adipiscing elit,",price:"200$"},
     {id:2,title:"The locker box",description:"Lorem ipsum dolor sit amet, cons ectetur adipiscing elit,",price:"200$"},
     {id:3,title:"The locker box",description:"Lorem ipsum dolor sit amet, cons ectetur adipiscing elit,",price:"200$"},
 ]
 
+const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow:3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1224,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 870,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 650,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 370,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
    const titleStyle={
         fontWeight:700,
         fontSize:"32px",
@@ -102,7 +145,7 @@ const Data=[
         <Box sx={{mt:"100px"}} >
             <Container>
             <Typography sx={titleStyle}>Our Packages</Typography>
-            <Stack gap={3} sx={sectionStyle}>
+            {/* <Stack gap={3} sx={sectionStyle}>
             {Data.map((card)=>(
                 <Box key={card.id} sx={cardStyle}>
                     <Typography sx={{fontSize:"32px",fontWeight:700,lineHeight:"37.92px",letterSpacing:"-0.24 px",mb:"16px"}}>{card.title}</Typography>
@@ -115,7 +158,23 @@ const Data=[
                     </Box>
                 </Box>
             ))}
-            </Stack>
+            </Stack> */}
+            <Slider {...settings} sx={{'.slick-track':{height:'200px'}}}>
+          {items?.results?.map((item) => (
+            <Box key={item.id} sx={cardStyle}>
+            <Typography sx={{fontSize:"32px",fontWeight:700,lineHeight:"37.92px",letterSpacing:"-0.24 px",mb:"16px",mt:"20px"}}>{item.product_name}</Typography>
+            <Divider width="80%" style={{marginLeft:"10%"}}/>
+            <Typography sx={{color:"#BDBDBD",mt:"16px",fontSize:"14px",fontWeight:400,lineHeight:"16.59px",mx:"25%"}}>{item.description}</Typography>
+            <Box sx={buttonBoxStyle} >
+                <Typography component="span" sx={shapeLeftStyle} className="Left"></Typography>
+            <Button sx={ButtonStyle}>{item.deposite}$</Button>
+            <Typography component="span" sx={shapeRightStyle} className='Right'></Typography>
+            </Box>
+        </Box>
+                ))}
+                 </Slider>
+              
+             {<SideCart />}
             </Container>
         </Box>
     </>

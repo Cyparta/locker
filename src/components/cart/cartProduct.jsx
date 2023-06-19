@@ -36,20 +36,13 @@ const CartProduct = ({ id, quantity, product, subtotal_price }) => {
       >
         <Typography sx={{ color: "#212121", size: "24px", fontWeight: "600" }}>
           {product_name}{" "}
-          <Typography
-            component="span"
-            variant="span"
-            style={{ fontSize: "12px" }}
-          >
-            {" "}
-            <sub>1 Kg</sub>
-          </Typography>
         </Typography>
         {!is_wholesale && (
           <Typography
             sx={{
-              color: "#CC8648",
+              
               fontWeight: "600",
+              fontSize:"24px"
             }}
           >
             {formatPrice(subtotal_price)} $

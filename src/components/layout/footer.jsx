@@ -43,19 +43,21 @@ const NavItem = styled("li")({
 const footerStyle = {
   backgroundImage: `url('${Fotter}')`,
   backgroundRepeat: "no-repeat",
-  height: {xl:"400px"},
+  height: {xl:"400px",lg:"400px"},
   backgroundSize: "cover",
   display:"flex",
-  flexWrap:{md:"wrap"},
+  flexWrap:{lg:"wrap",md:"wrap"},
   flexDirection:{xl:"row",lg:"row",md:"row",sm:"column",xs:"column"},
-  justifyContent:{xl:"space-between",xs:"center"},
-  
+  justifyContent:{xl:"space-between",md:"space-between",xs:"center"},
+  width:"100%"
 };
 const imgStyle={
   mt:"80px",
-  ml:"10%"
+  ml:{xl:"10%",md:"5%"},
+  display:"flex",
+  justifyContent:"center"
 }
-const titleStyle={fontSize:"15px",color:"#00011F",fontWeight:700,lineHeight:"24px",letterSpacing:"-1.5%",mt:"112px"}
+const titleStyle={fontSize:"15px",color:"#00011F",fontWeight:700,lineHeight:"24px",letterSpacing:"-1.5%",marginTop:{xl:"112px",lg:"112px",md:"112px",xs:"24px"}}
 const contactStyle={
   height:"222px",
   mt:"75px",
@@ -313,13 +315,14 @@ const Footer = () => {
         </Stack>
       </Container>
     </Box> */}
-      <Box sx={footerStyle}>
+      <Box  sx={footerStyle}>
         <Box sx={imgStyle}>
           <img src={logoFooter} alt="Logo Footer"/>
         </Box>
         <Box>
-          <Typography sx={titleStyle}>Links</Typography>
+          <Box sx={{display:"flex",justifyContent:{xs:"center"}}}>
           <NavbarNav>
+          <Typography sx={titleStyle}>Links</Typography>
                 <NavItem>
                   <Link to="/retail">Contact Us</Link>
                 </NavItem>
@@ -330,8 +333,9 @@ const Footer = () => {
                   <Link to="/profile">Profile</Link>
                 </NavItem>
               </NavbarNav>
+              </Box>
         </Box>
-        <Box >
+        <Box sx={{display:"flex",alignItems:{xs:"center"},flexDirection:"column"}}>
           <Typography sx={titleStyle}>Social Media</Typography>
           <Box sx={{mt:"18px",display:"flex",gap:2,flexDirection:"row"}} >
           <InstagramIcon/>
@@ -340,7 +344,7 @@ const Footer = () => {
           <img src={tiktok} alt='Tictok' />
           </Box>
         </Box>
-        <Box>
+        <Box sx={{display:"flex",alignItems:{xs:"center",flexDirection:"column"}}}>
           <Typography sx={titleStyle}>Download App</Typography>
           <Box sx={{ display: "flex", gap:3, flexDirection:"column",mt:"16px" }}>
             <a href={PLAYSTORE} target="_blank" rel="noreferrer">
@@ -351,7 +355,7 @@ const Footer = () => {
             </a>
           </Box>
         </Box>
-        <Box sx={{mr:"15%"}}>
+        <Box sx={{mr:{xl:"15%",lg:"8%",md:"4%"},display:"flex",alignItems:{xs:"center",flexDirection:"column"}}}>
           <Box sx={contactStyle}>
             <Typography sx={contactTitleStyle}>Keep in touch</Typography>
             <Typography sx={contactdescribeStyle}>Get exclusive offers , packages and free delivery</Typography>
