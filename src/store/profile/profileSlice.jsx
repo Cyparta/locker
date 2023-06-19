@@ -10,7 +10,7 @@ export const postChangePassword = createAsyncThunk(
     const token = ThunkApi.getState().user.user;
     try {
       const response = await axios.post(
-        `${BASEURL}auth/users/set_password/`,
+        `${BASEURL}auth/password/users/set_password/`,
         {
           ...data,
         },

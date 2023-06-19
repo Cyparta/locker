@@ -13,7 +13,6 @@ import RadioCheck from "../common/radioCheck";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearForm,
-  editShippingID,
   getShipping,
   postShipping,
   setChecked,
@@ -21,11 +20,12 @@ import {
   setErrorMsg,
   setRetail,
   updateForm,
+  postForm
 } from "../../store/shipping/shippingSlice";
 import { countries } from "../../data/country";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const AddressSave = ({
+const AddressPost = ({
   onSubmit,
   checked,
   open,
@@ -34,12 +34,8 @@ const AddressSave = ({
   setActiveCard,
   handleClose,
 }) => {
-  // const { name, company_name, address, phone_number } = useSelector(
-  //   (state) => state?.shipping?.shipping
-  // );
-  const params = useParams()
   const { name, company_name, address, phone_number } = useSelector(
-    (state) => state?.shipping?.getShipping
+    (state) => state?.shipping?.shipping
   );
 
   const { errorMsg, allShipping, checkedSavedAdress, retail } = useSelector(
@@ -89,44 +85,31 @@ const AddressSave = ({
     // }
     return test;
   };
-  const navigate = useNavigate();
   // Change Forms inputs And update Form
   const handleChange = (e) => {
     const { name, value } = e.target;
-    dispatch(updateForm({ name, value }));
+    dispatch(postForm({ name, value }));
   };
   const handlePostShipping = (e) => {
     e.preventDefault();
-    setActiveCard(activeCard - 2);
+    console.log("yes")
     if (!valditionForm()) {
       return false;
     }
-    // if (allShipping.length >= 10) {
-    //   handleClickOpen();
-
-    //   return false;
-    // }
-
     dispatch(
       postShipping({
         name,
         company_name,
         phone_number,
         address,
+        country: "US"
       })
     ).then((result) => {
       if (result.type === "postShipping/fulfilled") {
         dispatch(getShipping());
       }
     });
-    setAddAds(false);
   };
-
-
-  const handleEditShipping = (e) => {
-    e.preventDefault()
-    dispatch(editShippingID(params.id))
-  }
   return (
     <>
       <form
@@ -147,7 +130,7 @@ const AddressSave = ({
             mb: "10px",
           }}
         >
-          Edit address
+          New address
         </Typography>
         <Box
           sx={{
@@ -201,7 +184,7 @@ const AddressSave = ({
             placeholder="phone number"
             id="phone_number"
             name="phone_number"
-            value={phone_number || ""}
+            value={phone_number}
             onChange={handleChange}
             disabled={checked}
           />
@@ -310,7 +293,7 @@ const AddressSave = ({
               padding: "10px",
             }}
             type="submit"
-            onClick={handleEditShipping}
+            onClick={handlePostShipping}
           >
             Save
           </GrayButton>
@@ -320,4 +303,4 @@ const AddressSave = ({
   );
 };
 
-export default AddressSave;
+export default AddressPost;

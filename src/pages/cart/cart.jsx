@@ -14,7 +14,7 @@ const Cart = () => {
       dispatch(getShipping())
   }, []);
   const crumbs = [
-    { label: 'Home', link: '/', active: false },
+    { label: "Home", link: "/", active: false },
     { label: 'cart', link: '/cart', active: true },
   ]; 
   return (

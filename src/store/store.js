@@ -9,6 +9,7 @@ import shopSlice from './shop/shopSlice'
 import userSlice from './user/userSlice'
 import shippingSlice from './shipping/shippingSlice'
 import paymentSlice from './payment/paymentSlice'
+import orderSlice  from './order/order'
 
 export const store = configureStore({
   reducer: {
@@ -21,7 +22,8 @@ export const store = configureStore({
     user: userSlice,
     profile:profileSlice,
     shipping:shippingSlice,
-    payment:paymentSlice
+    payment:paymentSlice,
+    order: orderSlice
   },
   middleware: getDefaultMiddleware =>
   getDefaultMiddleware({

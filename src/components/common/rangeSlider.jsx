@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-
 import { useDispatch, useSelector } from "react-redux";
 import { getMeat, setRange } from "../../store/shop/shopSlice";
 import { Button, Input, InputBase, TextField, Typography } from "@mui/material";
