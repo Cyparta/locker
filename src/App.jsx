@@ -34,6 +34,9 @@ import AddressSection from "./components/profile/addressSection";
 import Order from "./pages/profile/order";
 import OrderDetails from "./pages/profile/[order]";
 import Address from "./pages/profile/address";
+import AddressDetails from "./pages/profile/addressDetails";
+import { getShippingID } from "./store/shipping/shippingSlice";
+import AddressAdd from "./pages/profile/addressAdd";
 
 function App() {
   const location = useLocation();
@@ -98,8 +101,10 @@ function App() {
           <Route path="/profile/order" element={<Order />} />
           <Route path="/profile/order/:id" element={<OrderDetails />} />
           <Route path="/profile/address" element={<Address />} />
+          <Route path="/profile/address/:id" element={<AddressDetails />} />
+          <Route path="/profile/address/add" element={<AddressAdd />} />
           
-            <Route path="/profile/address" element={<Profile active={2} />}/>
+          {/* <Route path="/profile/address" element={<Profile active={2} />}/> */}
           
           <Route path="/payment" element={<Payment />} />
           <Route path="/payment/success" element={<PaymentSuccess />} />

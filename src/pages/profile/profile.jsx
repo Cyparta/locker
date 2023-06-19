@@ -66,6 +66,7 @@ const Profile = ({ active }) => {
   const { profile, customer } = useSelector((state) => state.profile);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   const crumbs = [
     { label: "Home", link: "/", active: false },
     { label: "profile", link: "/profile", active: true },
@@ -115,37 +116,21 @@ const Profile = ({ active }) => {
       <PageMeta title={`Grays and Danny's `} desc="user profile" />
       <Box>
         {/* hero Title */}
-        <Box mt="32px" ml="80px">
+        <Box mt="32px" sx={{ ml: { xs: "20px", sm: "80px" } }}>
           <HeroTitle crumbs={crumbs} />
         </Box>
-        {/* Account Page */}
-        {/* <Box
-            sx={{
-              background: "rgba(235, 235, 235, 1)",
-              borderRadius: "4px",
-              padding: "9px 16px",
-              mb: "32px",
-              mt: "24px",
-            }}
-          >
-            <Typography
-              sx={{
-                color: "rgba(204, 134, 72, 1)",
-                fontSize: "22px",
-                fontWeight: "500",
-              }}
-            >
-              Account Profile
-            </Typography>
-          </Box> */}
-
         {/* -----
               Grid container
               -----
-          */}
-        <Grid container spacing={6} mb="48px" mt="48px">
+        */}
+        <Grid
+          container
+          spacing={6}
+          mb="48px"
+          sx={{ mt: { xs: "1px", sm: "40px" } }}
+        >
           {/* col 1 */}
-          <Grid item xs={12} xl={3}>
+          <Grid item xs={12} sm={4} md={3}>
             <Box mb="10px">
               {/* <Box sx={{borderTop: "0.5px solid #121212",py:"23px"}}>
                   <button
@@ -169,11 +154,13 @@ const Profile = ({ active }) => {
             </Box>
           </Grid>
           {/* col 2 */}
-          <Grid item xs={12} xl={9}>
+          <Grid item xs={12} sm={8} md={9}>
             <Box>
               <>
                 {/* info data */}
-                <ProfileCard sx={{ width: "88%" }}>
+                <ProfileCard
+                  sx={{ mb: "24px", width: "88%", mx: { xs: "auto", sm: 0 } }}
+                >
                   {/* info Box */}
                   <Stack direction="row" justifyContent="space-between">
                     <Typography
@@ -283,6 +270,7 @@ const Profile = ({ active }) => {
                       <GrayButton
                         sx={{
                           width: { md: "242px" },
+                          padding: {xs:"15px", md:0},
                           height: "48px",
                           "&:hover": {
                             background: "rgba(127, 127, 127, 1)",
@@ -301,7 +289,9 @@ const Profile = ({ active }) => {
                   </form>
                 </ProfileCard>
                 {/* default data */}
-                <ProfileCard sx={{ width: "88%", mt: "40px" }}>
+                <ProfileCard
+                  sx={{ mb: "24px", width: "88%", mx: { xs: "auto", sm: 0 } }}
+                >
                   {/* info Box */}
                   <Stack direction="row" justifyContent="space-between">
                     <Typography
@@ -330,10 +320,7 @@ const Profile = ({ active }) => {
                       flexDirection: "column",
                       gap: "16px",
                     }}
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      dispatch(updateCustomer({ ...customer }));
-                    }}
+                    onSubmit={formik.handleSubmit}
                   >
                     <Box
                       sx={{
@@ -357,15 +344,11 @@ const Profile = ({ active }) => {
                           <InputAdornment position="end">
                             <IconButton
                               aria-label="toggle password visibility"
-                              onClick={handleClickShowPassword}
+                              onClick={() => setShowCurrent((old) => !old)}
                               onMouseDown={handleMouseDownPassword}
                               edge="end"
                             >
-                              {showPassword ? (
-                                <VisibilityOff />
-                              ) : (
-                                <Visibility />
-                              )}
+                              {showCurrent ? <VisibilityOff /> : <Visibility />}
                             </IconButton>
                           </InputAdornment>
                         }
@@ -385,7 +368,7 @@ const Profile = ({ active }) => {
                           <InputAdornment position="end">
                             <IconButton
                               aria-label="toggle password visibility"
-                              onClick={handleClickShowPassword}
+                              onClick={() => setShowNewPass((old) => !old)}
                               onMouseDown={handleMouseDownPassword}
                               edge="end"
                             >
@@ -413,7 +396,7 @@ const Profile = ({ active }) => {
                           <InputAdornment position="end">
                             <IconButton
                               aria-label="toggle password visibility"
-                              onClick={handleClickShowPassword}
+                              onClick={() => setShowConfirmPass((old) => !old)}
                               onMouseDown={handleMouseDownPassword}
                               edge="end"
                             >
@@ -436,19 +419,6 @@ const Profile = ({ active }) => {
                           {formik.errors.confirm_password}
                         </Typography>
                       ) : null}
-
-                      <InputControl
-                        label=""
-                        variant="outlined"
-                        placeholder="phone"
-                        type="text"
-                        id="phone"
-                        name="phone_number"
-                        value={customer.phone_number}
-                        onChange={handleChange}
-                        disabled={editAcc}
-                        sx={{ maxWidth: "49%" }}
-                      />
                     </Box>
 
                     <Box
@@ -462,6 +432,7 @@ const Profile = ({ active }) => {
                       <OutlineButton
                         sx={{
                           width: { md: "242px" },
+                          padding: {xs:"15px", md:0},
                           height: "48px",
                           "&:hover": {},
                           "&.Mui-disabled": {
@@ -473,23 +444,6 @@ const Profile = ({ active }) => {
                         disabled={editAcc}
                       >
                         Change Password
-                      </OutlineButton>
-                      <OutlineButton
-                        sx={{
-                          width: { md: "242px" },
-                          height: "48px",
-                          "&:hover": {
-                            background: "rgba(127, 127, 127, 1)",
-                          },
-                          "&.Mui-disabled": {
-                            borderColor: "rgba(127, 127, 127, 50%)",
-                            color: "rgba(127, 127, 127, 50%)",
-                          },
-                        }}
-                        type="submit"
-                        disabled={editAcc}
-                      >
-                        Change phone number
                       </OutlineButton>
                     </Box>
                   </form>

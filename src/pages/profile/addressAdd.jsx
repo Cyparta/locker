@@ -15,7 +15,7 @@ import { GrayButton, InputControl, OutlineButton } from "../../shared/style";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -32,6 +32,7 @@ import { useEffect } from "react";
 import {
   deleteShipping,
   getShipping,
+  getShippingID,
 } from "../../store/shipping/shippingSlice";
 
 import { ProfileCard } from "../../shared/style";
@@ -45,25 +46,19 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import AddressSave from "../../components/profile/addressSave";
 import SideNav from "../../components/profile/sideNav";
+import AddressPost from "../../components/profile/addressPost";
 const inputData = [
   { placeholder: "last Name", type: "text", id: "lastName", name: "last_name" },
 ];
 
-const Address = ({ active }) => {
-  // edit Account
-  const [editAcc, setEditAcc] = useState(true);
-  // inputs for password
-  const [showCurrent, setShowCurrent] = useState(true);
-  const [showNewPass, setShowNewPass] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPass, setShowConfirmPass] = useState(true);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+const AddressAdd = ({ active }) => {
+  const shipping = useSelector((state) => state?.shipping?.shipping);
   // Account Info
   const [activeCard, setActiveCard] = useState(1);
-  const { profile, customer } = useSelector((state) => state.profile);
+  const params = useParams();
+
+  const getShipping = useSelector((state) => state?.shipping?.getShipping);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -75,7 +70,7 @@ const Address = ({ active }) => {
   ];
 
   useEffect(() => {
-    dispatch(getShipping());
+    dispatch(getShippingID(params.id));
   }, []);
 
   return (
@@ -88,10 +83,15 @@ const Address = ({ active }) => {
         </Box>
 
         {/* -----
-              Grid container
-            -----
+                Grid container
+              -----
           */}
-        <Grid container spacing={6} mb="48px" sx={{mt: {xs: "1px", sm: "40px"}}}>
+        <Grid
+          container
+          spacing={6}
+          mb="48px"
+          sx={{ mt: { xs: "1px", sm: "40px" } }}
+        >
           {/* col 1 */}
           <Grid item xs={12} sm={4} md={3}>
             <Box mb="10px">
@@ -101,18 +101,16 @@ const Address = ({ active }) => {
           {/* col 2 */}
           <Grid item xs={12} sm={8} md={9}>
             <Box>
-              <AddressSection
-                activeCard={activeCard}
-                setActiveCard={setActiveCard}
-              />
-              {activeCard === 4 && (
-                <ProfileCard sx={{ mb: "24px", width: "88%", mx: { xs: "auto", sm: 0 } }}>
-                  <AddressSave
-                    activeCard={activeCard}
-                    setActiveCard={setActiveCard}
-                  />
-                </ProfileCard>
-              )}
+              <ProfileCard
+                sx={{ mb: "24px", width: "88%", mx: { xs: "auto", sm: 0 } }}
+              >
+                {/* <AddressSave
+                      activeCard={activeCard}
+                      setActiveCard={setActiveCard}
+                      getShipping={getShipping}
+                    /> */}
+                <AddressPost />
+              </ProfileCard>
             </Box>
           </Grid>
         </Grid>
@@ -121,4 +119,4 @@ const Address = ({ active }) => {
   );
 };
 
-export default Address;
+export default AddressAdd;
