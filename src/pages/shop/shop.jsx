@@ -46,7 +46,13 @@ const Shop = () => {
     (state) => state.shop
   );
 
-  const { cate } = useSelector((state) => state.shop.data);
+  const { cate,packag } = useSelector((state) => state.shop.data);
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event) => {
+    
+    dispatch(packag(event.target.checked))
+  };
 
   const dispatch = useDispatch();
 
@@ -286,7 +292,9 @@ const Shop = () => {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              defaultChecked
+                            checked={checked}
+                            onChange={handleChange}
+                           inputProps={{ 'aria-label': 'controlled' }}
                               sx={{
                                 color: "#8F5147",
                                 "&.Mui-checked": {

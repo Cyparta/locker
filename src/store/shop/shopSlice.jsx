@@ -3,7 +3,7 @@ import axios from "axios";
 import { BASEURL } from "../../data/API";
 
 export const getMeat = createAsyncThunk("getMeat", async (data, ThunkApi) => {
-  const {  cate, search, limit, page, ordering } =
+  const {  cate, search, limit, page, ordering, packag } =
     ThunkApi.getState().shop.data;
   const rangeValue = ThunkApi.getState().shop.rangeValue;
   console.log(rangeValue)
@@ -11,7 +11,7 @@ export const getMeat = createAsyncThunk("getMeat", async (data, ThunkApi) => {
     const response = await axios.get(
       `${BASEURL}products/?collection_id=${cate}&search=${search}&limit=${limit}&offset=${
         (page - 1) * limit
-      }&unit_price__gt=${rangeValue[0]}&unit_price__lt=${rangeValue[1]}&ordering=${ordering}`
+      }&unit_price__gt=${rangeValue[0]}&unit_price__lt=${rangeValue[1]}&ordering=${ordering}&package=${packag}`
     );
     return response.data;
   } catch (error) {
@@ -46,6 +46,7 @@ const initialState = {
     page: "1",
     limit: "16",
     ordering: "unit_price",
+   packag:false
   },
   rangeValue: [8, 100000],
   filteredProducts: [],
