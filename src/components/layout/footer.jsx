@@ -7,6 +7,7 @@ import {
   Typography,
   Stack,
   Button,
+  useMediaQuery,
 } from "@mui/material";
 
 import icons from "../../assets/home/vector1.svg";
@@ -40,15 +41,7 @@ const NavItem = styled("li")({
   fontWeight: "400",
   fontSize: "15px",
 });
-const footerStyle = {
-  backgroundImage: `url('${Fotter}')`,
-  backgroundRepeat: "no-repeat",
-  height: {xl:"400px",lg:"400px"},
-  backgroundSize: "cover",
-  
-  width:"100%",
-  
-};
+
 const imgStyle={
   mt:"80px",
   ml:{xl:"10%",md:"5%"},
@@ -83,6 +76,16 @@ const contactdescribeStyle={
   color:"#9D9D9D"
 }
 const Footer = () => {
+  const smSize=useMediaQuery("(max-width:576px)")
+  const footerStyle = {
+    backgroundImage: smSize? "#fff":`url('${Fotter}')`,
+    backgroundRepeat: "no-repeat",
+    height: {xl:"400px",lg:"400px"},
+    backgroundSize: "cover",
+    
+    width:"100%",
+    
+  };
   return (
     <>
       {/* <Box
@@ -398,7 +401,7 @@ const Footer = () => {
           <img src={logoFooter} alt="Logo Footer"/>
         </Box>
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={2}>
+        <Grid item xs={6} sm={6} md={4} lg={2}>
         <Box>
           <Box sx={{display:"flex",justifyContent:"center" }}>
           <NavbarNav>
@@ -416,7 +419,7 @@ const Footer = () => {
               </Box>
         </Box>
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={1}>
+        <Grid item xs={6} sm={6} md={4} lg={1}>
         <Box sx={{display:"flex",alignItems:{xs:"center"},flexDirection:"column"}}>
           <Typography sx={titleStyle}>Social Media</Typography>
           <Box sx={{mt:"18px",display:"flex",gap:2,flexDirection:"row"}} >
