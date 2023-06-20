@@ -22,6 +22,20 @@ export const postPayment = createAsyncThunk("postPayment", async (data, ThunkApi
   }
 });
 
+export const postGuestPayment = createAsyncThunk("postGuestPayment", async (data, ThunkApi) => {
+  try {
+    
+    const response = await axios.post(
+      `${BASEURL}payment/guest/order/${data.pk}`
+    );
+    ThunkApi.dispatch(clearItems())
+      
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 const initialState = {
   loading: false,
   error: null,

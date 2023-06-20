@@ -9,8 +9,16 @@ const SideCart = () => {
   const { items, total_price, delivery_total } = useSelector(
     (state) => state.cart
   );
+  const {
+    items: guest,
+    total_price: guest_price,
+    delivery_total: guest_total,
+  } = useSelector((state) => state.guestCart);
   const { cartNav } = useSelector((state) => state.global);
   const isMobile = useMediaQuery("(max-width:430px)");
+  // Guest Token
+  const guestToken = useSelector((state) => state.guestCart.cartID);
+
   const dispatch = useDispatch();
   return (
     <Box
@@ -53,17 +61,34 @@ const SideCart = () => {
             close
           </span>
         </Box>
-        <Box>
-          {items?.map((item) => {
-            return <CartProduct {...item} key={item.id} />;
-          })}
-          <InfoCart
-            items={items}
-            total_price={total_price}
-            title="checkout"
-            delivery_total={delivery_total}
-          />
-        </Box>
+        
+        {!guestToken && (
+          <Box>
+            {items?.map((item) => {
+              return <CartProduct {...item} key={item.id} />;
+            })}
+            <InfoCart
+              items={items}
+              total_price={total_price}
+              title="checkout"
+              delivery_total={delivery_total}
+            />
+          </Box>
+        )}
+
+        {guestToken && (
+          <Box>
+            {guest?.map((item) => {
+              return <CartProduct {...item} key={item.id} />;
+            })}
+            <InfoCart
+              items={guest}
+              total_price={guest_price}
+              title="checkout"
+              delivery_total={guest_total}
+            />
+          </Box>
+        )}
       </Box>
     </Box>
   );

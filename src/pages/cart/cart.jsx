@@ -27,12 +27,13 @@ const Cart = () => {
           <Box mt="25px">
             <HeroTitle crumbs={crumbs} />
           </Box>
-          <Grid container spacing={{ xs: 2, md: 8 }}>
+          {/* spacing={{ xs: 2, md: 8 }} */}
+          <Grid container>
             <Grid item xs={12} md={8}>
               {/* Shipping information */}
               <Shipping />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} sx={{pl:{xs:"16px", md:"64px"}}}>
               <UserCart btn={"Continue to Pay"}/>
             </Grid>
           </Grid>

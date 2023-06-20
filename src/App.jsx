@@ -37,6 +37,7 @@ import Address from "./pages/profile/address";
 import AddressDetails from "./pages/profile/addressDetails";
 import { getShippingID } from "./store/shipping/shippingSlice";
 import AddressAdd from "./pages/profile/addressAdd";
+import { getGuestCart } from "./store/guestCart/guestCartSlice";
 
 function App() {
   const location = useLocation();
@@ -55,12 +56,22 @@ function App() {
   const { error } = useSelector((state) => state.cart);
   // const token = localStorage.getItem("token");
   const token = useSelector(state => state.user.user);
+  const guestToken = useSelector(state => state.guestCart.cartID);
 
   useEffect(() => {
     if (token) {
       dispatch(getCart());
     }
-  }, [token]);
+
+    if (guestToken) {
+      dispatch(getGuestCart())
+    }
+  }, [token, guestToken]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+  
   return (
     <div className="App">
       <CssBaseline />
@@ -77,11 +88,9 @@ function App() {
         }}
       >
         <Routes>
-          <Route element={<PrivateRoute />}>
-            <Route path="/cart" element={<Cart />} />
-          </Route>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

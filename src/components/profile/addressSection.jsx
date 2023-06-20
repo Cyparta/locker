@@ -125,9 +125,12 @@ const AddressSection = ({ activeCard, setActiveCard }) => {
           navigate('/profile/address/add')
         }}
       >
-        Add new address
+        Add new address  
       </Button>
+        {allShipping.length === 0 && <Typography sx={{paddingLeft: "10px", mt:"20px", cursor:"pointer"}}>there is no Shipping, <span style={{color:"#9B1D08"}} onClick={() => {
+          navigate('/profile/address/add')
 
+        }}>add New Address</span></Typography>}
       {allShipping.length > 0 && (
         <Box
           sx={{
