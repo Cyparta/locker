@@ -20,7 +20,7 @@ import { useDispatch } from "react-redux";
 const Categorey = ({collection, cate, type, name}) => {
   const dispatch = useDispatch();
   const [isExpand, setIsExpand] = useState(true);
-
+  console.log(collection)
   const toggleExpand = () => {
     setIsExpand(!isExpand);
   };

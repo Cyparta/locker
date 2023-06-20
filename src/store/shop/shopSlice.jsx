@@ -3,7 +3,7 @@ import axios from "axios";
 import { BASEURL } from "../../data/API";
 
 export const getMeat = createAsyncThunk("getMeat", async (data, ThunkApi) => {
-  const {  cate, search, limit, page, ordering, packag } =
+  const {  cate, search, limit, page, ordering } =
     ThunkApi.getState().shop.data;
   const rangeValue = ThunkApi.getState().shop.rangeValue;
   console.log(rangeValue)
@@ -11,7 +11,7 @@ export const getMeat = createAsyncThunk("getMeat", async (data, ThunkApi) => {
     const response = await axios.get(
       `${BASEURL}products/?collection_id=${cate}&search=${search}&limit=${limit}&offset=${
         (page - 1) * limit
-      }&unit_price__gt=${rangeValue[0]}&unit_price__lt=${rangeValue[1]}&ordering=${ordering}&package=${packag}`
+      }&unit_price__gt=${rangeValue[0]}&unit_price__lt=${rangeValue[1]}&ordering=${ordering}`
     );
     return response.data;
   } catch (error) {
@@ -22,16 +22,21 @@ export const getMeat = createAsyncThunk("getMeat", async (data, ThunkApi) => {
 
 export const getCollection = createAsyncThunk(
   "getCollection",
-  async (_, ThunkApi) => {
+  async (others, ThunkApi) => {
     try {
-      const response = await axios.get(BASEURL + "collections/");
+      const response = await axios.get(BASEURL + `collections/?others=${others}`);
+      
       return response.data;
+      
     } catch (error) {
       
       return ThunkApi.rejectWithValue(error.response.data.msg);
     }
+    
   }
+  
 );
+
 
 const initialState = {
   loading: false,
@@ -39,6 +44,7 @@ const initialState = {
   errorCollection: null,
   allProducts: [],
   collection: [],
+  others:false,
   data: {
     type: true,
     cate: 1,
@@ -46,7 +52,6 @@ const initialState = {
     page: "1",
     limit: "16",
     ordering: "unit_price",
-   packag:false
   },
   rangeValue: [8, 100000],
   filteredProducts: [],
@@ -83,10 +88,11 @@ export const shopSlice = createSlice({
       // toast.error(action.payload);
     });
     // GET ALL COLLECTIONS
-    builder.addCase(getCollection.pending, (state) => {
+    builder.addCase(getCollection.pending, (state,action) => {
       state.loading = true;
       state.errorCollection = null;
       state.collection = [];
+      state.others=action.payload
     });
     builder.addCase(getCollection.fulfilled, (state, action) => {
       state.loading = false;

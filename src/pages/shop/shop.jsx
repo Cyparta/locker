@@ -42,16 +42,24 @@ import MailIcon from "@mui/icons-material/Mail";
 import { useState } from "react";
 
 const Shop = () => {
-  const { allProducts, loading, error, data, collection } = useSelector(
+  const { allProducts, loading, error, data, collection ,boxes,others} = useSelector(
     (state) => state.shop
   );
 
-  const { cate,packag } = useSelector((state) => state.shop.data);
-  const [checked, setChecked] = React.useState(true);
+  const { cate } = useSelector((state) => state.shop.data);
+  const [checked, setChecked] = React.useState(false);
 
-  const handleChange = (event) => {
+  const [showboxes,setboxes]=useState([])
+  const handleChange = (checked) => {
+    setChecked(checked)
+    // if(checked===true)
+    dispatch(getCollection(checked));
+    // setboxes(collection?.results)
     
-    dispatch(packag(event.target.checked))
+
+  
+
+    // !checked ? setboxes(boxes) : setboxes(allProducts)
   };
 
   const dispatch = useDispatch();
@@ -59,9 +67,16 @@ const Shop = () => {
   const isTab = useMediaQuery("(min-width:900px)");
 
   useEffect(() => {
-    dispatch(getCollection());
     dispatch(getMeat());
-  }, [dispatch]);
+    // setboxes([...allProducts?.results])
+    dispatch(getCollection(false));
+    // setboxes(allProducts)
+ 
+  
+  }, []);
+  useEffect(()=>{
+   setboxes(allProducts)
+  },[allProducts])
 
   const meatFilter = [
     { id: false, name: "meat", value: "meat" },
@@ -122,7 +137,7 @@ const Shop = () => {
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Categorey
             collection={collection?.results}
-            cate={cate}
+            cate={!cate}
             type="cate"
             name="Categories"
           />
@@ -293,7 +308,7 @@ const Shop = () => {
                           control={
                             <Checkbox
                             checked={checked}
-                            onChange={handleChange}
+                            onChange={(e)=>handleChange(e.target.checked)}
                            inputProps={{ 'aria-label': 'controlled' }}
                               sx={{
                                 color: "#8F5147",
@@ -501,7 +516,8 @@ const Shop = () => {
                     </ul>
                   </Box>
                 )}
-                {allProducts?.results?.map((product) => (
+                
+                {showboxes?.results?.map((product) => (
                   <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
                     <ProductItem {...product} w="img-cover-shop" />
                   </Grid>
@@ -509,7 +525,7 @@ const Shop = () => {
               </Grid>
 
               {/* pagination */}
-              {allProducts?.results > 15 && (
+              {showboxes?.results > 15 && (
                 <BasicPagination allProducts={allProducts} data={data} />
               )}
             </Box>

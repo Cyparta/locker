@@ -181,7 +181,7 @@ const BestSeller = ({ token }) => {
                 <Typography sx={sellDesc}>
                   {product.product__description.slice(0, 60)}
                 </Typography>
-                <Typography sx={sellPrice}>{product.total_sales}</Typography>
+                <Typography sx={sellPrice}>{product.total_sales} $</Typography>
                 <Button
                   sx={addCartButton}
                   onClick={(e, product) =>
