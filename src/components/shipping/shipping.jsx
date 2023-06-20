@@ -7,12 +7,14 @@ import { Box, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearForm,
+  postGuestOrder,
   postOrder,
   postShipping,
   setChecked,
   setCheckedSavedAdress,
   setDeliveryDate,
   setDeliveryTime,
+  setEmailContact,
   setErrorMsg,
   setSavedAdress,
   // updateForm,
@@ -20,10 +22,14 @@ import {
 import { Link } from "react-router-dom";
 import RadioCheck from "../common/radioCheck";
 import { InputControl } from "../../shared/style";
-import { postPayment } from "../../store/payment/paymentSlice";
+import {
+  postGuestPayment,
+  postPayment,
+} from "../../store/payment/paymentSlice";
 import { toast } from "react-toastify";
 import DialogShipping from "./dialogShipping";
 import ShippingForm from "./shippingForm";
+import { setCartID } from "../../store/guestCart/guestCartSlice";
 
 const today = new Date();
 const dayAfterTomorrow = new Date();
@@ -67,15 +73,20 @@ const Shipping = () => {
     delivery_date,
     delivery_time,
     errorDelivery,
+    emailContact,
   } = useSelector((state) => state.shipping);
 
   const { items, is_wholesale } = useSelector((state) => state.cart);
 
+  const { items: guest } = useSelector((state) => state.guestCart);
+  const guestToken = useSelector((state) => state.guestCart.cartID);
+
+  const { errorMsg, retail } = useSelector((state) => state.shipping);
+
   const dispatch = useDispatch();
 
   // const token = localStorage.getItem("token");
-  const token = useSelector(state => state.user.user);
-
+  const token = useSelector((state) => state.user.user);
 
   // const [dateField, setDateField] = useState("");
   // const [dateTime, setDateTime] = useState("");
@@ -101,9 +112,13 @@ const Shipping = () => {
   // };
 
   // console.log(is_wholesale)
-  
+
   // validition Form
   const valditionForm = () => {
+    let isEmail =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        emailContact
+      );
     let test = true;
     if (phone_number == null) {
       dispatch(
@@ -140,10 +155,29 @@ const Shipping = () => {
       dispatch(setErrorMsg({ name: "city", value: "" }));
     }
 
+    if (guestToken) {
+      if (emailContact === "") {
+        dispatch(
+          setErrorMsg({ name: "emailContact", value: "requird valid email" })
+        );
+        test = false;
+      } else if (!isEmail) {
+        dispatch(
+          setErrorMsg({ name: "emailContact", value: "requird valid email" })
+        );
+        test = false;
+      } else {
+        dispatch(setErrorMsg({ name: "emailContact", value: "" }));
+      }
+    }
+
     if (is_wholesale) {
       if (name_of_the_business == null) {
         dispatch(
-          setErrorMsg({ name: "position_of_the_business", value: "this is field is requird" })
+          setErrorMsg({
+            name: "position_of_the_business",
+            value: "this is field is requird",
+          })
         );
         test = false;
       } else {
@@ -161,7 +195,10 @@ const Shipping = () => {
 
       if (position_of_the_business == null) {
         dispatch(
-          setErrorMsg({ name: "position_of_the_business", value: "this is field is requird" })
+          setErrorMsg({
+            name: "position_of_the_business",
+            value: "this is field is requird",
+          })
         );
         test = false;
       } else {
@@ -266,6 +303,66 @@ const Shipping = () => {
     }
   };
 
+  const handlePaymentGuest = (e) => {
+    e.preventDefault();
+
+    // check if there is no items
+    if (guest.length === 0) {
+      toast.error("Add Items to Cart !");
+      return false;
+    }
+
+    // check if From Branch or from site
+    if (!checked) {
+      if (!valditionForm()) {
+        return false;
+      }
+      if (allShipping.length < 10) {
+        // postGuestOrder
+        dispatch(
+          postGuestOrder({
+            shipping_address: ` ${name}/${countryValue}/${company_name}/${house_number}/${city}/${postal_code}/${governoate}/${phone}/${address}`,
+            order_info: "Delivery",
+            email: emailContact,
+          })
+        )
+          .then((result) => {
+            return result.payload.id;
+          })
+          .then((result) => {
+            dispatch(postGuestPayment({ pk: result })).then((result) => {
+              window.open(result.payload.url, "_blank");
+            });
+          });
+
+        dispatch(setCartID());
+        localStorage.removeItem("tokenGuest");
+      } else {
+        // Stoooooooooop if there shipping bigger than 10
+        handleClickOpen();
+      }
+    } else {
+      dispatch(
+        postGuestOrder({
+          shipping_address: null,
+          order_info: "Pickup from the branch",
+          email: emailContact,
+        })
+      )
+        .then((result) => {
+          return result.payload.id;
+        })
+        .then((result) => {
+          dispatch(postGuestPayment({ pk: result })).then((result) => {
+            window.open(result.payload.url, "_blank");
+          });
+        });
+
+      dispatch(setCartID());
+      localStorage.removeItem("tokenGuest");
+    }
+  };
+
   return (
     <>
       <DialogShipping open={open} handleClose={handleClose} />
@@ -300,7 +397,24 @@ const Shipping = () => {
               label=""
               variant="outlined"
               placeholder="Email"
+              type="email"
+              value={emailContact}
+              onChange={(e) => {
+                console.log(emailContact);
+                dispatch(setEmailContact(e.target.value));
+              }}
             />
+            {errorMsg?.emailContact && (
+              <span
+                style={{
+                  color: "#E81717",
+                  fontSize: "13px",
+                  paddingLeft: "5px",
+                }}
+              >
+                this field is required
+              </span>
+            )}
           </Box>
         )}
         <Box>
@@ -381,12 +495,9 @@ const Shipping = () => {
                         border: "1px solid #ddd",
                         padding: "17px",
                         borderRadius: "5px",
-                        color:
-                          item.id === checkedSavedAdress &&
-                          "#9B1D08",
+                        color: item.id === checkedSavedAdress && "#9B1D08",
                         borderColor:
-                          item.id === checkedSavedAdress &&
-                          "#9B1D08",
+                          item.id === checkedSavedAdress && "#9B1D08",
                         cursor: "pointer",
                       }}
                     >
@@ -398,14 +509,19 @@ const Shipping = () => {
             </Box>
           )}
           {/* form  */}
-          {!checkedSavedAdress && !is_wholesale && !checked && (
+          {!checkedSavedAdress && !is_wholesale && !checked && !guestToken && (
             <>
               <ShippingForm onSubmit={handlePayment} checked={checked} />
             </>
           )}
 
-          {is_wholesale && (
-            <ShippingForm onSubmit={handlePayment} checked={checked} />
+          {is_wholesale &&
+            !guestToken(
+              <ShippingForm onSubmit={handlePayment} checked={checked} />
+            )}
+
+          {guestToken && (
+            <ShippingForm onSubmit={handlePaymentGuest} checked={checked} />
           )}
 
           {/* Delivery date */}
@@ -512,16 +628,15 @@ const Shipping = () => {
             <Link to="/shop">
               {/* <ButtonBack>Back to Shopping</ButtonBack> */}
               <button
-                
                 style={{
                   width: "auto",
                   padding: "12px 68px",
                   cursor: "pointer",
-                  color:"#9B1D08",
-                  fontSize:"16px",
+                  color: "#9B1D08",
+                  fontSize: "16px",
                   border: "2px solid #9B1D08",
-                  background:"#FFF",
-                  borderRadius:"14px",
+                  background: "#FFF",
+                  borderRadius: "14px",
                 }}
               >
                 Back to home
