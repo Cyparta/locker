@@ -27,7 +27,7 @@ export const CardSign = styled(Box)({
 });
 export const CardSignup = styled(Box)({
   background: "#fff",
-  width:"50%",
+  width:{xl:"50%",xs:"100%"},
   border: "0.3px solid #121212",
   borderRadius: "20px",
   padding: "70px 20px",

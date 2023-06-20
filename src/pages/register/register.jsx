@@ -111,7 +111,7 @@ const Register = () => {
         title="Register - Grays and Danny's"
         desc="Welcome to the Register page of Grays and Danny's Register to your account to access your order history, saved items, and other account information"
       />
-      <Container>
+      <Container sx={{xs:"100%"}}>
         {/* hero title */}
         <Box mt="32px">
           <HeroTitle title="Account" crumbs={crumbs} />

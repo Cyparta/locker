@@ -33,7 +33,7 @@ const Home = () => {
   return (
     <>
       <PageMeta
-        title="Grays and Danny's"
+        title="Papineau Locker"
         desc="Shop premium meat products at Grays and Danny's florida halal meat. We offer high-quality beef, pork, chicken, and more, sourced from local farms and raised with care. Our meats are expertly prepared and delivered fresh to your door, so you can enjoy the best-tasting and healthiest meats available. With fast and reliable shipping, easy returns, and exceptional customer service, Grays and Danny's is your one-stop online destination for all your meat needs."
       />
        <Landing />

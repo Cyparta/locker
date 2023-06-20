@@ -74,8 +74,8 @@ const Login = () => {
   return (
     <>
       <PageMeta
-        title="login - Grays and Danny's"
-        desc="Welcome to the login page of Grays and Danny's Login to your account to access your order history, saved items, and other account information"
+        title="login - Papineau Locker's"
+        desc="Welcome to the login page of Papineau Locker's Login to your account to access your order history, saved items, and other account information"
       />
       <Container>
         {/* hero title */}

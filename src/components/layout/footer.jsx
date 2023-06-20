@@ -15,7 +15,6 @@ import icons3 from "../../assets/home/vector3.svg";
 import appStore from "../../assets/home/appStore.png";
 import googlePlay from "../../assets/home/googlePlay.png";
 import send from "../../assets/home/send.svg";
-import cypartaLogo from "../../assets/icons/cypartaLogo.png";
 import { Link } from "react-router-dom";
 
 import { HashLink } from "react-router-hash-link";
@@ -28,6 +27,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import tiktok from '../../assets/home/tiktok.png'
+import cypartaLogo from '../../assets/home/cypartal logo.png'
 
 
 const NavbarNav = styled("ul")({
@@ -45,11 +45,9 @@ const footerStyle = {
   backgroundRepeat: "no-repeat",
   height: {xl:"400px",lg:"400px"},
   backgroundSize: "cover",
-  display:"flex",
-  flexWrap:{lg:"wrap",md:"wrap"},
-  flexDirection:{xl:"row",lg:"row",md:"row",sm:"column",xs:"column"},
-  justifyContent:{xl:"space-between",md:"space-between",xs:"center"},
-  width:"100%"
+  
+  width:"100%",
+  
 };
 const imgStyle={
   mt:"80px",
@@ -57,7 +55,7 @@ const imgStyle={
   display:"flex",
   justifyContent:"center"
 }
-const titleStyle={fontSize:"15px",color:"#00011F",fontWeight:700,lineHeight:"24px",letterSpacing:"-1.5%",marginTop:{xl:"112px",lg:"112px",md:"112px",xs:"24px"}}
+const titleStyle={fontSize:"15px",color:"#00011F",fontWeight:700,lineHeight:"24px",letterSpacing:"-1.5%",marginTop:{xl:"112px",lg:"112px",md:"112px",xs:"48px"}}
 const contactStyle={
   height:"222px",
   mt:"75px",
@@ -315,16 +313,16 @@ const Footer = () => {
         </Stack>
       </Container>
     </Box> */}
-      <Box  sx={footerStyle}>
+      {/* <Box  sx={footerStyle}>
         <Box sx={imgStyle}>
           <img src={logoFooter} alt="Logo Footer"/>
         </Box>
         <Box>
-          <Box sx={{display:"flex",justifyContent:{xs:"center"}}}>
+          <Box sx={{display:"flex",justifyContent:{xl:"start",xs:"center"}}}>
           <NavbarNav>
           <Typography sx={titleStyle}>Links</Typography>
                 <NavItem>
-                  <Link to="/retail">Contact Us</Link>
+                  <Link to={`/#contact`}>Contact Us</Link>
                 </NavItem>
                 <NavItem>
                   <Link to="/wholesale">Shop</Link>
@@ -344,7 +342,7 @@ const Footer = () => {
           <img src={tiktok} alt='Tictok' />
           </Box>
         </Box>
-        <Box sx={{display:"flex",alignItems:{xs:"center",flexDirection:"column"}}}>
+        <Box sx={{display:"flex",alignItems:{xs:"center",flexDirection:"column"},mr:{lg:"0%",md:"4%"}}}>
           <Typography sx={titleStyle}>Download App</Typography>
           <Box sx={{ display: "flex", gap:3, flexDirection:"column",mt:"16px" }}>
             <a href={PLAYSTORE} target="_blank" rel="noreferrer">
@@ -355,7 +353,7 @@ const Footer = () => {
             </a>
           </Box>
         </Box>
-        <Box sx={{mr:{xl:"15%",lg:"8%",md:"4%"},display:"flex",alignItems:{xs:"center",flexDirection:"column"}}}>
+        <Box sx={{mr:{xl:"15%",lg:"8%",md:"2%"} ,ml:{xl:"0",md:"4%"},display:"flex",alignItems:{xs:"center",flexDirection:"column"}}}>
           <Box sx={contactStyle}>
             <Typography sx={contactTitleStyle}>Keep in touch</Typography>
             <Typography sx={contactdescribeStyle}>Get exclusive offers , packages and free delivery</Typography>
@@ -386,7 +384,103 @@ const Footer = () => {
                 </Button>
               </Box>
           </Box>
+          <Box sx={{display:"flex",flexDirection:"row",alignItems:"center"}}>
+            <Typography sx={{pt:"15px"}}>Powered by : </Typography>
+            <img src={cypartaLogo} alt="cyparta logo"/>
+          </Box>
         </Box>
+      </Box> */}
+      <Box sx={footerStyle}>
+        <Container maxWidth='xl'>
+        <Grid container   sx={{ paddingTop: "48px" }}>
+          <Grid item xs={12} sm={6} md={4} lg={2}>
+        <Box sx={imgStyle}>
+          <img src={logoFooter} alt="Logo Footer"/>
+        </Box>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+        <Box>
+          <Box sx={{display:"flex",justifyContent:"center" }}>
+          <NavbarNav>
+          <Typography sx={titleStyle}>Links</Typography>
+                <NavItem>
+                  <Link to={`/#contact`}>Contact Us</Link>
+                </NavItem>
+                <NavItem>
+                  <Link to="/wholesale">Shop</Link>
+                </NavItem>
+                <NavItem>
+                  <Link to="/profile">Profile</Link>
+                </NavItem>
+              </NavbarNav>
+              </Box>
+        </Box>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={1}>
+        <Box sx={{display:"flex",alignItems:{xs:"center"},flexDirection:"column"}}>
+          <Typography sx={titleStyle}>Social Media</Typography>
+          <Box sx={{mt:"18px",display:"flex",gap:2,flexDirection:"row"}} >
+          <InstagramIcon/>
+          <TwitterIcon/>
+          <FacebookOutlinedIcon/>
+          <img src={tiktok} alt='Tictok' />
+          </Box>
+        </Box>
+        </Grid>
+       
+        <Grid item xs={12} sm={6} md={6}lg={3}>
+        <Box sx={{display:"flex",alignItems:{xs:"center",flexDirection:"column"},}}>
+          <Typography sx={titleStyle}>Download App</Typography>
+          <Box sx={{ display: "flex", gap:3, flexDirection:{xl:"column",lg:"column",md:"row",sm:"column"},mt:"16px" }}>
+            <a href={PLAYSTORE} target="_blank" rel="noreferrer">
+              <img src={googlePlay} alt="google play" />
+            </a>
+            <a href={PLAYSTORE} rel="noreferrer" >
+              <img src={appStore} alt="app Store" />
+            </a>
+          </Box>
+        </Box>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}lg={3}>
+        <Box sx={{display:"flex",alignItems:{xs:"center",flexDirection:"column"}}}>
+          <Box sx={contactStyle}>
+            <Typography sx={contactTitleStyle}>Keep in touch</Typography>
+            <Typography sx={contactdescribeStyle}>Get exclusive offers , packages and free delivery</Typography>
+            <Box sx={{ display: "flex" }}>
+                <TextField
+                  id="outlined-basic"
+                  label=""
+                  placeholder="Email Address"
+                  variant="outlined"
+                  sx={{
+                    input: {
+                      background: "#fff",
+                      borderRadius: "12px 0px 0 12px",
+                    },
+                  }}
+                />
+                <Button
+                  sx={{
+                    background: "#C76D55",
+                    marginLeft: "-3px",
+                    borderRadius: "0 12px 12px 0",
+                    ":hover":{
+                      background: "#C76D55",
+                    }
+                  }}
+                >
+                  <img src={send} alt="send" />
+                </Button>
+              </Box>
+          </Box>
+          <Box sx={{display:"flex",flexDirection:"row",alignItems:"center"}}>
+            <Typography sx={{pt:"15px"}}>Powered by : </Typography>
+            <img src={cypartaLogo} alt="cyparta logo"/>
+          </Box>
+        </Box>
+        </Grid>
+        </Grid>
+        </Container>
       </Box>
     </>
   );

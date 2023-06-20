@@ -4,16 +4,14 @@ import Slider from 'react-slick'
 import ProductItem from '../common/productItem'
 import SideCart from '../cart/sideCart'
 import { useSelector } from 'react-redux'
+import ProductDetails from '../productDetails/productDetails'
+import { useNavigate } from 'react-router-dom'
 
 const OurPackage = () => {
 
 const { items } = useSelector((state) => state.products);
 
-const Data=[
-    {id:1,title:"The locker box",description:"Lorem ipsum dolor sit amet, cons ectetur adipiscing elit,",price:"200$"},
-    {id:2,title:"The locker box",description:"Lorem ipsum dolor sit amet, cons ectetur adipiscing elit,",price:"200$"},
-    {id:3,title:"The locker box",description:"Lorem ipsum dolor sit amet, cons ectetur adipiscing elit,",price:"200$"},
-]
+const navigate=useNavigate()
 
 const settings = {
     infinite: true,
@@ -159,12 +157,12 @@ const settings = {
                 </Box>
             ))}
             </Stack> */}
-            <Slider {...settings} sx={{'.slick-track':{height:'200px'}}}>
+            <Slider {...settings} style={{overflow: "hidden",height:"270px"}}>
           {items?.results?.map((item) => (
-            <Box key={item.id} sx={cardStyle}>
+            <Box key={item.id} sx={cardStyle} onClick={()=>{navigate(`/retail/${item.id}`)}}>
             <Typography sx={{fontSize:"32px",fontWeight:700,lineHeight:"37.92px",letterSpacing:"-0.24 px",mb:"16px",mt:"20px"}}>{item.product_name}</Typography>
             <Divider width="80%" style={{marginLeft:"10%"}}/>
-            <Typography sx={{color:"#BDBDBD",mt:"16px",fontSize:"14px",fontWeight:400,lineHeight:"16.59px",mx:"25%"}}>{item.description}</Typography>
+            <Typography sx={{color:"#BDBDBD",mt:"16px",fontSize:"14px",fontWeight:400,lineHeight:"16.59px",mx:"25%"}}>{item.description.slice(0,50)}</Typography>
             <Box sx={buttonBoxStyle} >
                 <Typography component="span" sx={shapeLeftStyle} className="Left"></Typography>
             <Button sx={ButtonStyle}>{item.deposite}$</Button>

@@ -457,7 +457,7 @@ const Product = () => {
           {/* Product details */}
           <ProductDetails items={items} />
 
-          <Box>
+          <Box sx={{height:"401px"}}>
             <Typography
               sx={{
                 fontSize: "24px",
@@ -470,7 +470,7 @@ const Product = () => {
               Related
             </Typography>
             <Box>
-              <Slider {...settings}>
+              <Slider {...settings} style={{overFlow:"hidden"}}>
                 {data?.results?.map((item, index) => (
                   <Box key={index}>
                     <ProductItem {...item} />
@@ -481,7 +481,7 @@ const Product = () => {
           </Box>
 
           {<SideCart />}
-          <Box mb="50px"></Box>
+          {/* <Box mb="50px"></Box> */}
         </Container>
       </Box>
 
