@@ -23,7 +23,7 @@ const BestSeller = ({ token }) => {
 
   const getBestSeller = () => {
     axios
-      .get(`${BASEURL}/api/best-sellers/`)
+      .get(`${BASEURL}api/best-sellers/`)
       .then((res) => setBestSeller(res.data));
   };
   const handleClose = () => {
@@ -53,80 +53,7 @@ const BestSeller = ({ token }) => {
       handleClose();
     }
   };
-  const BoxSell = [
-    {
-      id: 1,
-      image: cardImageMeat,
-      title: "The locker box",
-      describtion: "Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, ",
-      price: "200 $- 700 $",
-      button: "Add to cart",
-    },
-    {
-      id: 2,
-      image: cardImageMeat,
-      title: "The locker box",
-      describtion: "Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, ",
-      price: "200 $- 700 $",
-      button: "Add to cart",
-    },
-    {
-      id: 3,
-      image: cardImageMeat,
-      title: "The locker box",
-      describtion: "Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, ",
-      price: "200 $- 700 $",
-      button: "Add to cart",
-    },
-    {
-      id: 5,
-      image: cardImageMeat,
-      title: "The locker box",
-      describtion: "Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, ",
-      price: "200 $- 700 $",
-      button: "Add to cart",
-    },
-    {
-      id: 6,
-      image: cardImageMeat,
-      title: "The locker box",
-      describtion: "Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, ",
-      price: "200 $- 700 $",
-      button: "Add to cart",
-    },
-    {
-      id: 7,
-      image: cardImageMeat,
-      title: "The locker box",
-      describtion: "Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, ",
-      price: "200 $- 700 $",
-      button: "Add to cart",
-    },
-    {
-      id: 8,
-      image: cardImageMeat,
-      title: "The locker box",
-      describtion: "Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, ",
-      price: "200 $- 700 $",
-      button: "Add to cart",
-    },
-    {
-      id: 9,
-      image: cardImageMeat,
-      title: "The locker box",
-      describtion: "Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, ",
-      price: "200 $- 700 $",
-      button: "Add to cart",
-    },
-    {
-      id: 10,
-      image: cardImageMeat,
-      title: "The locker box",
-      describtion: "Lorem ipsum dolor sit amet, cons ectetur adipiscing elit, ",
-      price: "200 $- 700 $",
-      button: "Add to cart",
-    },
-  ];
+ 
   const settings = {
     infinite: true,
     speed: 500,
@@ -239,19 +166,21 @@ const BestSeller = ({ token }) => {
           <Typography sx={seeMoreStyle}>See More</Typography>
         </Box>
         <Box sx={mainSellerStyle}>
-          <Slider {...settings} style={{overFlow:"hidden"}}>
-            <Box>
+          <Slider {...settings} style={{overflow: "hidden",height:"320px"}}>
             {bestSeller.map((product) => (
               <Box key={product.product_id}>
                 <img
-                  src={product.image}
-                  alt="Best seller"
+                  src={product.product__image}
+                  alt={product.product__product_name}
+                  width="100%"
+                  height='152px'
                 />
+                {console.log(product.product__image)}
                 <Typography sx={sellTitle}>
                   {product.product__product_name}
                 </Typography>
                 <Typography sx={sellDesc}>
-                  {product.product__description.slice(0, 100)}
+                  {product.product__description.slice(0, 80)}
                 </Typography>
                 <Typography sx={sellPrice}>{product.total_sales}</Typography>
                 <Button
@@ -264,7 +193,7 @@ const BestSeller = ({ token }) => {
                 </Button>
               </Box>
             ))}
-            </Box>
+            
 
           </Slider>
           {<SideCart />}

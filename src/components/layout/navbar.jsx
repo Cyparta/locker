@@ -138,7 +138,7 @@ function Navbar() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
+      <List sx={{pt:5}}>
         <Link to="/">
           {/* <img src={logo} alt="logo" width="100%" height="100%" /> */}
           <Typography sx={textLogoStyle}>Papineau Locker</Typography>
