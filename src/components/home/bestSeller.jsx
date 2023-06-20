@@ -175,18 +175,17 @@ const BestSeller = ({ token }) => {
                   width="100%"
                   height='152px'
                 />
-                {console.log(product.product__image)}
                 <Typography sx={sellTitle}>
                   {product.product__product_name}
                 </Typography>
                 <Typography sx={sellDesc}>
-                  {product.product__description.slice(0, 80)}
+                  {product.product__description.slice(0, 60)}
                 </Typography>
                 <Typography sx={sellPrice}>{product.total_sales}</Typography>
                 <Button
                   sx={addCartButton}
                   onClick={(e, product) =>
-                    handleAddToCart(e, product?.product_id)
+                    handleAddToCart(product?.product_id)
                   }
                 >
                   Add to cart

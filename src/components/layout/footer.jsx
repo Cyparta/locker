@@ -441,7 +441,7 @@ const Footer = () => {
           </Box>
         </Box>
         </Grid>
-        <Grid item xs={12} sm={6} md={4}lg={3}>
+        <Grid item xs={12} sm={12} md={4}lg={3}>
         <Box sx={{display:"flex",alignItems:{xs:"center",flexDirection:"column"}}}>
           <Box sx={contactStyle}>
             <Typography sx={contactTitleStyle}>Keep in touch</Typography>
