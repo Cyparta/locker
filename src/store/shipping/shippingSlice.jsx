@@ -97,7 +97,7 @@ export const postShipping = createAsyncThunk(
       const decoded = jwt_decode(token);
       const response = await axios.post(
         `${BASEURL}shippingaddress/`,
-        { ...data, customer: decoded.user_id },
+        { ...data, customer: decoded.user_id, name: "null" },
         {
           headers: {
             Authorization: `JWT ${token}`,

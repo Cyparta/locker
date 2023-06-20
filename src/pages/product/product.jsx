@@ -99,7 +99,7 @@ const Product = () => {
   const crumbs = [
     { label: "Home", link: "/", active: false },
     { label: "Search result", link: "/shop", active: false },
-    { label: items.product_name, link: `/${items.product_name}`, active: true },
+    { label: items.product_name, link: `/${items.id}`, active: true },
   ];
 
   // const handleAddToCart = (is_wholesale, occ) => {
@@ -211,7 +211,7 @@ const Product = () => {
             <HeroTitle crumbs={crumbs} />
           </Box>
           {/*---- Grid Row ----*/}
-          <Grid container spacing={3}>
+          <Grid container>
             <Grid item xs={12} md={4} xl={6}>
               <Box>
                 <img
@@ -222,7 +222,7 @@ const Product = () => {
                 />
               </Box>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} sx={{pl:"24px"}}>
               {/*  product Item */}
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <Typography

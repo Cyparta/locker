@@ -14,7 +14,7 @@ const CartProduct = ({ id, quantity, product, subtotal_price }) => {
   const guestToken = useSelector((state) => state.guestCart.cartID);
 
   const dispatch = useDispatch();
-  const { image, product_name, id: productID } = product;
+  const { image, product_name, id: productID, deposite  } = product;
   return (
     <Box sx={{ display: "flex", gap: "19px", mb: "16px" }} key={productID}>
       <Link
@@ -48,7 +48,7 @@ const CartProduct = ({ id, quantity, product, subtotal_price }) => {
               fontSize:"24px"
             }}
           >
-            {formatPrice(subtotal_price)} $
+            {formatPrice(deposite)} $
           </Typography>
         )}
 
