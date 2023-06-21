@@ -41,7 +41,7 @@ const settings = {
         },
       },
       {
-        breakpoint: 370,
+        breakpoint: 470,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -157,7 +157,7 @@ const settings = {
                 </Box>
             ))}
             </Stack> */}
-            <Slider {...settings} style={{overflow: "hidden",height:"268px"}}>
+            <Slider {...settings} style={{overflow: "hidden",height:"267px"}}>
           {items?.results?.map((item) => (
             <Box key={item.id} sx={cardStyle} onClick={()=>{navigate(`/retail/${item.id}`)}}>
             <Typography sx={{fontSize:"32px",fontWeight:700,lineHeight:"37.92px",letterSpacing:"-0.24 px",mb:"16px",mt:"20px"}}>{item.product_name}</Typography>

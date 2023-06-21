@@ -16,15 +16,17 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import { getMeat, setValues } from "../../store/shop/shopSlice";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
-const Categorey = ({collection, cate, type, name}) => {
+const Categorey = ({collection, cate, type, name,checked}) => {
   const dispatch = useDispatch();
   const [isExpand, setIsExpand] = useState(true);
-  console.log(collection)
+  
   const toggleExpand = () => {
     setIsExpand(!isExpand);
   };
 
+  
   return (
     <>
       <Box
@@ -62,12 +64,24 @@ const Categorey = ({collection, cate, type, name}) => {
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 name="radio-buttons-group"
-              >
-                {collection?.map((col, index) => (
+              >   
+               
+                 
+
+ {/* {console.log(collection?.map((obj)=>{
+                  return Object.keys(obj).filter(key => key==="others")
+                }))
+                  
+                } */}
+               
+                {
+                collection?.map((col, index) =>  
+                (
+                 
                   <FormControlLabel
                     key={col.id}
                     value={col.id}
-                    control={<RadioCheck id={col.id} checked={cate} />}
+                    control={<RadioCheck id={col.id} checked={cate} check={checked}/>}
                     label={col.name}
                     onClick={(e) => {
                       dispatch(
@@ -78,7 +92,9 @@ const Categorey = ({collection, cate, type, name}) => {
                       );
                       dispatch(getMeat());
                     }}
+                    
                   />
+                  
                 ))}
               </RadioGroup>
             </FormControl>
