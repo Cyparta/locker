@@ -48,35 +48,43 @@ const Shop = () => {
 
   const { cate } = useSelector((state) => state.shop.data);
   const [checked, setChecked] = React.useState(false);
-
+  const [categorey,setCategory]=useState([])
   const [showboxes,setboxes]=useState([])
-  const handleChange = (checked) => {
-    setChecked(checked)
-    // if(checked===true)
-    dispatch(getCollection(checked));
-    // setboxes(collection?.results)
-    
 
-  
-
-    // !checked ? setboxes(boxes) : setboxes(allProducts)
+  const handleChange = (check) => {
+    setChecked(check)
+    // setboxes(collection?.results?.filter((col)=>col.others===true)) 
+    dispatch(
+      setValues({
+        name: "cate",
+        value: check ? 1 :2,
+      })
+    );
+    dispatch(getMeat());
   };
 
   const dispatch = useDispatch();
 
   const isTab = useMediaQuery("(min-width:900px)");
 
+  useEffect(()=>{
+   
+    setboxes(allProducts?.results)
+    setCategory(collection?.results?.filter((col)=>col.others===false))
+   },[collection,allProducts])
   useEffect(() => {
     dispatch(getMeat());
-    // setboxes([...allProducts?.results])
-    dispatch(getCollection(false));
-    // setboxes(allProducts)
- 
-  
-  }, []);
-  useEffect(()=>{
-   setboxes(allProducts)
-  },[allProducts])
+    dispatch(getCollection());
+   
+  },[dispatch]);
+  // useEffect(() => {
+  // dispatch(getMeat(cate))
+  //   // setboxes([...allProducts?.results])
+  //   // setboxes(collection?.results?.filter((col)=>col.others===checked)) 
+    
+  //   // setboxes(allProducts)
+  // },[checked]);
+
 
   const meatFilter = [
     { id: false, name: "meat", value: "meat" },
@@ -133,11 +141,13 @@ const Shop = () => {
           filter By
         </Typography>
       </Box>
+      
       <List sx={{ padding: "0 15px" }}>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Categorey
-            collection={collection?.results}
-            cate={!cate}
+            collection={categorey}
+            cate={cate}
+            checked={checked}
             type="cate"
             name="Categories"
           />
@@ -235,8 +245,9 @@ const Shop = () => {
                   {/* ALL FILTER Categories */}
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Categorey
-                      collection={collection?.results}
+                      collection={categorey}
                       cate={cate}
+                      checked={checked}
                       type="cate"
                       name="Categories"
                     />
@@ -308,7 +319,7 @@ const Shop = () => {
                           control={
                             <Checkbox
                             checked={checked}
-                            onChange={(e)=>handleChange(e.target.checked)}
+                            onChange={(e)=>{handleChange(e.target.checked)}}
                            inputProps={{ 'aria-label': 'controlled' }}
                               sx={{
                                 color: "#8F5147",
@@ -517,7 +528,7 @@ const Shop = () => {
                   </Box>
                 )}
                 
-                {showboxes?.results?.map((product) => (
+                {showboxes?.map((product) => (
                   <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
                     <ProductItem {...product} w="img-cover-shop" />
                   </Grid>
@@ -525,7 +536,7 @@ const Shop = () => {
               </Grid>
 
               {/* pagination */}
-              {showboxes?.results > 15 && (
+              {showboxes?.length > 15 && (
                 <BasicPagination allProducts={allProducts} data={data} />
               )}
             </Box>

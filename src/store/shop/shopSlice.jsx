@@ -24,7 +24,7 @@ export const getCollection = createAsyncThunk(
   "getCollection",
   async (others, ThunkApi) => {
     try {
-      const response = await axios.get(BASEURL + `collections/?others=${others}`);
+      const response = await axios.get(BASEURL + `collections/`);
       
       return response.data;
       
@@ -47,7 +47,7 @@ const initialState = {
   others:false,
   data: {
     type: true,
-    cate: 1,
+    cate: "",
     search: "",
     page: "1",
     limit: "16",
@@ -102,6 +102,7 @@ export const shopSlice = createSlice({
       state.loading = false;
       state.errorCollection = action.error.message;
     });
+    // builder.addCase()
   },
 });
 

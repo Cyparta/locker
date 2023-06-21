@@ -1,5 +1,5 @@
 // mui
-import { Box, Grid, Typography} from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery} from "@mui/material";
 // photos
 import googlePlay from "../../assets/home/googlePlay.png";
 import appStore from "../../assets/home/appStore.png";
@@ -9,6 +9,7 @@ import { PLAYSTORE } from "../../data/API";
 
 const Landing = () => {
   const fixedCard={width:{xl:"50%",lg:"50%",md:"50%",sm:"100%",xs:"100%"}}
+  const smSize=useMediaQuery("(max-width:576px)")
   return (
     <Grid
       container
@@ -57,7 +58,7 @@ const Landing = () => {
       <Box
         sx={fixedCard }
       >
-        <img src={landing} alt="landing" width="100%" height="679px"/>
+        <img src={landing} alt="landing" width="100%" height={smSize? "479px":"679px"}/>
       </Box>
     </Grid>
   );
