@@ -11,8 +11,10 @@ import { BASEURL } from "../../data/API";
 import { setCartNav } from "../../store/global/globalSlice";
 import { getCart, postCart } from "../../store/cart/cartSlice";
 import { useNavigate } from "react-router";
+import { getGuestCart, postCartGuest, postItemToCart } from "../../store/guestCart/guestCartSlice";
 
 const BestSeller = ({ token }) => {
+  const tokenGuest = useSelector(state => state.guestCart.cartID);
   const [bestSeller, setBestSeller] = useState([]);
   const [open, setOpen] = useState(false);
   const { items, count } = useSelector((state) => state.productID);
@@ -35,9 +37,9 @@ const BestSeller = ({ token }) => {
   }, []);
 
   const handleAddToCart = (e, product_id) => {
-    console.log(product_id);
-    if (!token) {
+    if(token){
       dispatch(setCartNav());
+
       dispatch(
         postCart({
           product_id: product_id,
@@ -48,11 +50,22 @@ const BestSeller = ({ token }) => {
       ).then(() => {
         dispatch(getCart());
       });
-    } else {
+    }else{
+      if (tokenGuest) {
+        dispatch(setCartNav());
+        dispatch(postItemToCart({ product_id: product_id, quantity: count, is_wholesale: false, occassion, cartID: tokenGuest })).then(() => {
+          dispatch(getGuestCart());
+        });
+        handleClose();
+      } else {
+        dispatch(setCartNav());
+        dispatch(postCartGuest()).then((data) => {
+          dispatch(postItemToCart({ product_id: product_id, quantity: count, is_wholesale: false, occassion, cartID: data.payload.id }))
+        })
       // navigate("/register");
       handleClose();
     }
-  };
+    }}
  
   const settings = {
     infinite: true,
@@ -136,6 +149,7 @@ const BestSeller = ({ token }) => {
     fontWeight: 400,
     lineHeight: "18.96px",
     letterSpacing: "-0.41px",
+    height:"38px",
     color: "#BDBDBD",
     mb: "8px",
   };
@@ -166,9 +180,38 @@ const BestSeller = ({ token }) => {
           <Typography sx={seeMoreStyle}>See More</Typography>
         </Box>
         <Box sx={mainSellerStyle}>
+          {bestSeller.length<5&&
+          bestSeller.map((product,index) =>
+          
+          (
+            <Box key={`${product.product_id} ${index}`}>
+              <img
+                src={product.product__image}
+                alt={product.product__product_name}
+                width="100%"
+                height='152px'
+              />
+              <Typography sx={sellTitle}>
+                {product.product__product_name}
+              </Typography>
+              <Typography sx={sellDesc}>
+                {product.product__description.slice(0, 60)}
+              </Typography>
+              <Typography sx={sellPrice}>{product.total_sales} $</Typography>
+              <Button
+                sx={addCartButton}
+                onClick={(e) =>{handleAddToCart(e,product?.product_id)}}
+              >
+                Add to cart
+              </Button>
+            </Box>
+          ))}
+          
+          
+          {bestSeller.length>5&&
           <Slider {...settings} style={{overflow: "hidden",height:"320px"}}>
             {bestSeller.map((product) => (
-              <Box key={product.product_id}>
+              <Box key={product.product_id} sx={{height:"329px",display:"flex",justifyContent:"space-between",flexDirection:"column"}}>
                 <img
                   src={product.product__image}
                   alt={product.product__product_name}
@@ -184,8 +227,8 @@ const BestSeller = ({ token }) => {
                 <Typography sx={sellPrice}>{product.total_sales} $</Typography>
                 <Button
                   sx={addCartButton}
-                  onClick={(e, product) =>
-                    handleAddToCart(product?.product_id)
+                  onClick={(e) =>
+                    handleAddToCart(e,product?.product_id)
                   }
                 >
                   Add to cart
@@ -193,8 +236,9 @@ const BestSeller = ({ token }) => {
               </Box>
             ))}
             
-
+                  
           </Slider>
+          }
           {<SideCart />}
         </Box>
       </Container>

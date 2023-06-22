@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCustomer,
-  getProfile,
+
   setValueUser,
 } from "../../store/profile/profileSlice";
 import { setUser } from "../../store/user/userSlice";

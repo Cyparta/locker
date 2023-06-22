@@ -223,6 +223,7 @@ export const guestCartSlice = createSlice({
         .map((item) => item.subtotal_price)
         .reduce((total, current) => total + current);
       state.total_price = sumTotal;
+      state.test = state.items.map((item) => item)
       // sum Delvery
       const test = state.items
         .map((item) => item.product.delivery_fees * item.quantity)

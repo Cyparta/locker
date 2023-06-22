@@ -28,22 +28,22 @@ export const postChangePassword = createAsyncThunk(
   }
 );
 
-export const getProfile = createAsyncThunk(
-  "getProfile",
-  async (data, ThunkApi) => {
-    const token = ThunkApi.getState().user.user;
-    try {
-      const response = await axios.get(`${BASEURL}auth/users/me/`, {
-        headers: {
-          Authorization: `JWT ${token}`,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      return ThunkApi.rejectWithValue(error.response.data);
-    }
-  }
-);
+// export const getProfile = createAsyncThunk(
+//   "getProfile",
+//   async (data, ThunkApi) => {
+//     const token = ThunkApi.getState().user.user;
+//     try {
+//       const response = await axios.get(`${BASEURL}auth/users/me/`, {
+//         headers: {
+//           Authorization: `JWT ${token}`,
+//         },
+//       });
+//       return response.data;
+//     } catch (error) {
+//       return ThunkApi.rejectWithValue(error.response.data);
+//     }
+//   }
+// );
 
 // https://stingray-app-ojidz.ondigitalocean.app/customers/me/
 export const getCustomer = createAsyncThunk(
@@ -140,16 +140,16 @@ export const profileSlice = createSlice({
         toast.error(action.payload);
       });
     /* getProfile */
-    builder
-      .addCase(getProfile.pending, (state, action) => {
-        state.profile = [];
-      })
-      .addCase(getProfile.fulfilled, (state, action) => {
-        state.profile = action.payload;
-      })
-      .addCase(getProfile.rejected, (state, action) => {
-        state.error = action.error.message;
-      });
+    // builder
+    //   .addCase(getProfile.pending, (state, action) => {
+    //     state.profile = [];
+    //   })
+    //   .addCase(getProfile.fulfilled, (state, action) => {
+    //     state.profile = action.payload;
+    //   })
+    //   .addCase(getProfile.rejected, (state, action) => {
+    //     state.error = action.error.message;
+    //   });
     /* get Customer */
     builder
       .addCase(getCustomer.pending, (state, action) => {

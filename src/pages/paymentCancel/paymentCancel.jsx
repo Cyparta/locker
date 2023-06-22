@@ -34,7 +34,7 @@ const PaymentCancel = () => {
                       fontSize: "18px",
                     }}
                   >
-                    thank you for choosing Grays and danny's
+                    thank you for choosing Papineau Locker
                   </Typography>
                   <Box sx={{ mt: "30px"}}>
                     <Link to="/cart">

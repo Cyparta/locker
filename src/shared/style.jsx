@@ -64,7 +64,13 @@ export const InputField = styled(OutlinedInput)({
      border:"none"
      
     },
-  },
+    },
+    input: {
+      '&:-webkit-autofill': {
+        '-webkit-box-shadow': '0 0 0 100px #fff inset',
+        '-webkit-text-fill-color': '#000'
+      }
+    }
 });
 
 /* 
@@ -171,7 +177,7 @@ export const Span = styled(Typography)({
   cursor: "pointer",
   lineHeight: "32px",
   "&:hover": {
-    background: "#CC8648",
+    background: "#9B1D08",
     color:"#fff"
   },
 });
