@@ -201,8 +201,8 @@ const Product = () => {
   return (
     <>
       <PageMeta
-        title={`${items.product_name} - Grays and Danny's`}
-        desc={`Shop ${items.product_name} product meat at Grays and Danny's. We offer high-quality beef, pork, chicken, and more, sourced from local farms and raised with care. Our meats are expertly prepared and delivered fresh to your door, so you can enjoy the best-tasting and healthiest meats available. With fast and reliable shipping, easy returns, and exceptional customer service, Grays and Danny's is your one-stop online destination for all your meat needs.`}
+        title={`${items.product_name} - Papineau Locker`}
+        desc={`Shop ${items.product_name} product meat at Grays and Danny's. We offer high-quality beef, pork, chicken, and more, sourced from local farms and raised with care. Our meats are expertly prepared and delivered fresh to your door, so you can enjoy the best-tasting and healthiest meats available. With fast and reliable shipping, easy returns, and exceptional customer service, Papineau Locker is your one-stop online destination for all your meat needs.`}
       />
       <Box mt="17px">
         <Container maxWidth="xl">
@@ -211,8 +211,8 @@ const Product = () => {
             <HeroTitle crumbs={crumbs} />
           </Box>
           {/*---- Grid Row ----*/}
-          <Grid container>
-            <Grid item xs={12} md={4} xl={6}>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={4} xl={5}>
               <Box>
                 <img
                   src={items.image}
@@ -222,13 +222,14 @@ const Product = () => {
                 />
               </Box>
             </Grid>
-            <Grid item xs={12} md={4} sx={{pl:"24px"}}>
+            <Grid item xs={12} md={4}  xl={6} sx={{pl:"24px"}}>
               {/*  product Item */}
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <Typography
                   sx={{
                     fontSize: "24px",
                     fontWeight: "600",
+                    lineHeight:"29.26px",
                     display: "flex",
                     mt: "17px",
                   }}
@@ -240,7 +241,7 @@ const Product = () => {
                   <Typography
                     sx={{
                       color: "#212121",
-                      fontSize: { xs: "16px", md: "20px" },
+                      fontSize: { xs: "16px", md: "20px" ,xl:"20px"},
                       fontWeight: "500",
                       mt: "13px",
                       mb: "8px",
@@ -333,6 +334,7 @@ const Product = () => {
                         display: "flex",
                         alignItems: "center",
                         mt: "8px",
+                        mb:"16px"
                       }}
                     >
                       <img src={time} alt="dollar" width="20px" height="20px" />
