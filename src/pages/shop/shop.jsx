@@ -245,8 +245,8 @@ const Shop = () => {
                 },
               }}
             >
-              <MenuItem value="unit_price">Price : high to Low</MenuItem>
-              <MenuItem value="-unit_price">Price : Low to High</MenuItem>
+              <MenuItem value="-unit_price">Price : high to Low</MenuItem>
+              <MenuItem value="unit_price">Price : Low to High</MenuItem>
               <MenuItem value="A-Z">Alphabetically, A-Z</MenuItem>
               <MenuItem value="Z-A">Alphabetically, Z-A</MenuItem>
             </Select>
@@ -476,10 +476,10 @@ const Shop = () => {
                             },
                           }}
                         >
-                          <MenuItem value="unit_price">
+                          <MenuItem value="-unit_price">
                             Price : high to Low
                           </MenuItem>
-                          <MenuItem value="-unit_price">
+                          <MenuItem value="unit_price">
                             Price : Low to High
                           </MenuItem>
                           <MenuItem value="A-Z">Alphabetically, A-Z</MenuItem>
