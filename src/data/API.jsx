@@ -1,4 +1,4 @@
-// const BASEURL = "http://192.168.1.12:9000/";
+// const BASEURL = "https://papineau-locker-lgtcn.ondigitalocean.app/";
  const BASEURL = "https://whale-app-e85pu.ondigitalocean.app/";
 // const BASEURL = "https://api.floridahalalmeat.com/";
 const HostPayment = "http://localhost:3000/";

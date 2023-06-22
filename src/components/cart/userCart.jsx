@@ -176,7 +176,7 @@ const UserCart = ({ btn = "Continue to shipping" }) => {
       return false;
     }
 
-    console.log(items);
+    
 
     if (is_wholesale) {
       dispatch(

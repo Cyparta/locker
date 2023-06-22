@@ -1,18 +1,30 @@
 import { Box, Button, Container, Divider, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Slider from 'react-slick'
 import ProductItem from '../common/productItem'
 import SideCart from '../cart/sideCart'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import ProductDetails from '../productDetails/productDetails'
 import { useNavigate } from 'react-router-dom'
+import { getMeat, setValues } from '../../store/shop/shopSlice'
 
 const OurPackage = () => {
 
-const { items } = useSelector((state) => state.products);
 
+const {allProducts}=useSelector((state)=>state.shop);
+
+console.log(allProducts.results);
 const navigate=useNavigate()
-
+const dispatch=useDispatch()
+useEffect(()=>{
+  dispatch(
+    setValues({
+      name: "cate",
+      value: 1,
+    })
+  );
+  dispatch(getMeat());
+},[])
 const settings = {
     infinite: true,
     speed: 500,
@@ -27,6 +39,13 @@ const settings = {
         },
       },
       {
+        breakpoint: 1000,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
         breakpoint: 870,
         settings: {
           slidesToShow: 3,
@@ -34,9 +53,16 @@ const settings = {
         },
       },
       {
-        breakpoint: 650,
+        breakpoint: 670,
         settings: {
           slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 533,
+        settings: {
+          slidesToShow: 1,
           slidesToScroll: 1,
         },
       },
@@ -143,22 +169,25 @@ const settings = {
         <Box sx={{mt:"100px"}} >
             <Container>
             <Typography sx={titleStyle}>Our Packages</Typography>
-            {/* <Stack gap={3} sx={sectionStyle}>
-            {Data.map((card)=>(
-                <Box key={card.id} sx={cardStyle}>
-                    <Typography sx={{fontSize:"32px",fontWeight:700,lineHeight:"37.92px",letterSpacing:"-0.24 px",mb:"16px"}}>{card.title}</Typography>
-                    <Divider width="80%" style={{marginLeft:"10%"}}/>
-                    <Typography sx={{color:"#BDBDBD",mt:"16px",fontSize:"14px",fontWeight:400,lineHeight:"16.59px",mx:"25%"}}>{card.description}</Typography>
-                    <Box sx={buttonBoxStyle} >
-                        <Typography component="span" sx={shapeLeftStyle} className="Left"></Typography>
-                    <Button sx={ButtonStyle}>{card.price}</Button>
-                    <Typography component="span" sx={shapeRightStyle} className='Right'></Typography>
-                    </Box>
+
+            {allProducts?.results?.length<4&&
+               allProducts?.results?.map((item) => (
+                <Box key={item.id} sx={cardStyle} onClick={()=>{navigate(`/retail/${item.id}`)}}>
+                <Typography sx={{fontSize:"32px",fontWeight:700,lineHeight:"37.92px",letterSpacing:"-0.24 px",mb:"16px",mt:"20px"}}>{item.product_name}</Typography>
+                <Divider width="80%" style={{marginLeft:"10%"}}/>
+                <Typography sx={{color:"#BDBDBD",mt:"16px",fontSize:"14px",fontWeight:400,lineHeight:"16.59px",mx:"25%"}}>{item.description.slice(0,50)}</Typography>
+                <Box sx={buttonBoxStyle} >
+                    <Typography component="span" sx={shapeLeftStyle} className="Left"></Typography>
+                <Button sx={ButtonStyle}>{item.deposite}$</Button>
+                <Typography component="span" sx={shapeRightStyle} className='Right'></Typography>
                 </Box>
-            ))}
-            </Stack> */}
+            </Box>
+             ))}
+            
+            
+            {allProducts?.results?.length>3&&
             <Slider {...settings} style={{overflow: "hidden",height:"267px"}}>
-          {items?.results?.map((item) => (
+          {allProducts?.results?.map((item) => (
             <Box key={item.id} sx={cardStyle} onClick={()=>{navigate(`/retail/${item.id}`)}}>
             <Typography sx={{fontSize:"32px",fontWeight:700,lineHeight:"37.92px",letterSpacing:"-0.24 px",mb:"16px",mt:"20px"}}>{item.product_name}</Typography>
             <Divider width="80%" style={{marginLeft:"10%"}}/>
@@ -171,7 +200,7 @@ const settings = {
         </Box>
                 ))}
                  </Slider>
-              
+              }
              {<SideCart />}
             </Container>
         </Box>

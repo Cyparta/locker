@@ -20,7 +20,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCustomer,
-  getProfile,
+
   postChangePassword,
   setValueUser,
   updateCustomer,
@@ -73,7 +73,7 @@ const Profile = ({ active }) => {
   ];
 
   useEffect(() => {
-    dispatch(getProfile());
+   
     dispatch(getCustomer());
     dispatch(getShipping());
   }, []);
@@ -246,7 +246,7 @@ const Profile = ({ active }) => {
                         type="text"
                         id="email"
                         name="email"
-                        value={profile?.email}
+                        value={customer?.email}
                         disabled
                         onChange={handleChange}
                         sx={{ maxWidth: "49%" }}

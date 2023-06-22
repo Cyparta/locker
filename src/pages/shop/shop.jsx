@@ -151,6 +151,8 @@ const Shop = () => {
             type="cate"
             name="Categories"
           />
+
+          
           {/* price */}
           <Box mt="24px">
             <Typography
@@ -165,6 +167,56 @@ const Shop = () => {
             </Typography>
             <RangeSlider />
           </Box>
+          {/* package */}
+          <Box mt="34px" mb="40px">
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            color: "#212121",
+                            fontSize: "16px",
+                            fontWeight: "700",
+                            mb: "10px",
+                          }}
+                        >
+                          Packages
+                        </Typography>
+                        {expand ? (
+                          <KeyboardArrowDownIcon
+                            onClick={togglePackage}
+                            sx={{ cursor: "pointer" }}
+                          />
+                        ) : (
+                          <KeyboardArrowRightIcon
+                            onClick={togglePackage}
+                            sx={{ cursor: "pointer" }}
+                          />
+                        )}
+                      </Box>
+                      {expand ? (
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                            checked={checked}
+                            onChange={(e)=>{handleChange(e.target.checked)}}
+                           inputProps={{ 'aria-label': 'controlled' }}
+                              sx={{
+                                color: "#8F5147",
+                                "&.Mui-checked": {
+                                  color: "#8F5147",
+                                },
+                              }}
+                            />
+                          }
+                          label="Yes"
+                        />
+                      ) : null}
+                    </Box>
         </Box>
         <Box>
           <Typography sx={{ fontSize: "12px", fontWeight: "500", mt: "25px" }}>
@@ -211,8 +263,8 @@ const Shop = () => {
   return (
     <>
       <PageMeta
-        title="Grays and Danny's - products"
-        desc="Shop premium meat products at Grays and Danny's. We offer high-quality beef, pork, chicken, and more, sourced from local farms and raised with care. Our meats are expertly prepared and delivered fresh to your door, so you can enjoy the best-tasting and healthiest meats available. With fast and reliable shipping, easy returns, and exceptional customer service, Grays and Danny's is your one-stop online destination for all your meat needs."
+        title="Papineau Locker - products"
+        desc="Shop premium meat products at Papineau Locker. We offer high-quality beef, pork, chicken, and more, sourced from local farms and raised with care. Our meats are expertly prepared and delivered fresh to your door, so you can enjoy the best-tasting and healthiest meats available. With fast and reliable shipping, easy returns, and exceptional customer service, Papineau Locker is your one-stop online destination for all your meat needs."
       />
       <Box sx={{ mt: "16px", ml: "5%" }}>
         <HeroTitle crumbs={crumbs} />

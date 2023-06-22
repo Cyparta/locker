@@ -20,7 +20,7 @@ const Cart = () => {
   return (
     <>
         <Helmet>
-          <PageMeta title="Grays and Danny's - Cart" desc="Checkout your items in your Cart on Grays and Danny's website"/>
+          <PageMeta title="Papineau Locker - Cart" desc="Checkout your items in your Cart on Papineau Locker website"/>
         </Helmet>
       <Box>
         <Container>

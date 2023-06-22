@@ -13,6 +13,8 @@ const InfoCart = ({
 }) => {
   const { is_wholesale } = useSelector((state) => state.cart);
 
+  console.log(total_price, delivery_total)
+
   return (
     <Box>
       {!is_wholesale && (

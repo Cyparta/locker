@@ -521,10 +521,10 @@ const Product = () => {
             >
               Related
             </Typography>
-            <Box>
+            <Box >
               <Slider {...settings} style={{overFlow:"hidden"}}>
                 {data?.results?.map((item, index) => (
-                  <Box key={index}>
+                  <Box key={index} sx={{height:"329px",overflow:"hidden"}}>
                     <ProductItem {...item} />
                   </Box>
                 ))}
