@@ -1,5 +1,5 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import React from "react";
+import React, { useRef } from "react";
 import cardImageMeat from "../../assets/home/bestsell.png";
 import SideCart from "../cart/sideCart";
 import Slider from "react-slick";
@@ -12,6 +12,20 @@ import { setCartNav } from "../../store/global/globalSlice";
 import { getCart, postCart } from "../../store/cart/cartSlice";
 import { useNavigate } from "react-router";
 import { getGuestCart, postCartGuest, postItemToCart } from "../../store/guestCart/guestCartSlice";
+
+
+function PreviousButton(props) {
+  const { className, style, onClick } = props;
+  return (
+    <button
+      className={className}
+      style={{ ...style, display: "block" }}
+      onClick={onClick}
+    >
+      Previous
+    </button>
+  );
+}
 
 const BestSeller = ({ token }) => {
   const tokenGuest = useSelector(state => state.guestCart.cartID);
@@ -67,11 +81,20 @@ const BestSeller = ({ token }) => {
     }
     }}
  
+    const sliderRef = useRef(null);
+
+  const handlePrevClick = () => {
+    sliderRef.current.slickPrev();
+  };
   const settings = {
     infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
+    dots: true,
+    autoplaySpeed: 2000,
+    autoplay:true,
+    // prevArrow: <PreviousButton onClick={handlePrevClick} />,
     responsive: [
       {
         breakpoint: 1024,
@@ -210,7 +233,7 @@ const BestSeller = ({ token }) => {
           
           
           {bestSeller.length>5&&
-          <Slider {...settings} style={{overflow: "hidden",height:"320px"}}>
+          <Slider  ref={sliderRef} {...settings} style={{overflow: "hidden",height:"320px"}}>
             {bestSeller.map((product) => (
               <Box key={product.product_id} sx={{height:"329px",display:"flex",justifyContent:"space-between",flexDirection:"column"}}>
                 <img

@@ -410,7 +410,7 @@ const Footer = () => {
                   <Link to={`/#contact`}>Contact Us</Link>
                 </NavItem>
                 <NavItem>
-                  <Link to="/wholesale">Shop</Link>
+                  <Link to="/retail">Shop</Link>
                 </NavItem>
                 <NavItem>
                   <Link to="/profile">Profile</Link>
