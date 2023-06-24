@@ -28,12 +28,14 @@ const SideCart = () => {
         top: "0px",
         width: isMobile ? "100%" : "430px",
         height: "100%",
-        background: "#D9D9D9",
+        background: "#F3E6D8",
         right: "0",
         zIndex: "999",
         transform: "translateX(100%)",
         transition: "0.3s all ease-in-out",
         overflow: "auto",
+        boxShadow: "-2px -2px 10px 0px #B2B2B214",
+
       }}
       className={cartNav ? "side-cart from-right" : "side-cart"}
     >
