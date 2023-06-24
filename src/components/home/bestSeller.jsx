@@ -162,13 +162,14 @@ const BestSeller = ({ token }) => {
     mb:"24px"
   };
   const addCartButton = {
-    width: "90%",
+    width: "100%",
     height: "50px",
     bgcolor: "#9B1D08",
     borderRadius: "14px",
     padding: "10px",
     textAlign: "center",
     color: "#fff",
+   
     textTransform: "none",
     ":hover": { bgcolor: "#9B1D08" },
   };
