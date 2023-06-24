@@ -108,10 +108,10 @@ const Register = () => {
   return (
     <>
       <PageMeta
-        title="Register - Grays and Danny's"
-        desc="Welcome to the Register page of Grays and Danny's Register to your account to access your order history, saved items, and other account information"
+        title="Register - Papineau Locker`s"
+        desc="Welcome to the Register page of GPapineau Locker`s Register to your account to access your order history, saved items, and other account information"
       />
-      <Container sx={{xs:"100%"}}>
+      <Container >
         {/* hero title */}
         <Box mt="32px">
           <HeroTitle title="Account" crumbs={crumbs} />
@@ -119,9 +119,9 @@ const Register = () => {
         {/* login card  */}
         <Box
           sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
+            
+           width:{xl:"50%",lg:"50%",md:"50%",sm:"70%",xs:"100%"},
+           mx:"auto",
             mt:"30px",
             mb:"30px"
            
