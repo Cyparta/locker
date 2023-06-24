@@ -43,7 +43,7 @@ a {
 .slick-list {
   margin: 0  12px;
 }
-.slick-slide > div {
+.slick-slide > div{
   padding: 0 12px;
 }
 
@@ -53,13 +53,31 @@ a {
   height: 62px !important;
 
 }
+.slick-prev {
+  left:30px !important;
+  width: 51px !important;
+  height: 62px !important;
+  z-index: 10 !important;
+ 
+}
 
-.slick-dots li.slick-active button::before {
+
+.slick-prev::before{
+  color: transparent !important;
+  content: "";
+  width: 24px;
+  height: 8px;
+  background: transparent;
+  margin-top: 5px;
+  /* line-height: 36px; */
+  border-radius: 5px;
+}
+.slick-dots li.slick-active button::before{
   opacity: .75;
     color: black;
     content: "";
     width: 24px;
-    height: 8px;
+    
     background: #6E2E02;
     margin-top: 5px;
     /* line-height: 36px; */
@@ -79,6 +97,13 @@ a {
   .slick-next::before {
     display: none;
   }
+  .slick-prev {
+    background: url('./assets/icons/prevArrow.png') center center no-repeat!important;
+  }
+  .slick-prev::before {
+    display: none;
+  }
+
 }
 /* line vertical */
 @media (min-width: 900px) {

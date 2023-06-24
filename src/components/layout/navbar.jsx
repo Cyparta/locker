@@ -20,7 +20,7 @@ import ListItemText from "@mui/material/ListItemText";
 import { Grid, InputAdornment, TextField } from "@mui/material";
 
 import cartIcon from "../../assets/icons/cart.png";
-import logo from "../../assets/icons/logo.png";
+import logo from "../../assets/icons/logoPNG.png";
 import logoSVG from "../../assets/icons/logo.svg";
 import logoPNG from "../../assets/icons/logoPNG.png";
 import navbarImage from "../../assets/home/navbarimage.png";
@@ -120,7 +120,7 @@ function Navbar() {
     setState({ ...state, [anchor]: open });
   };
 
-  const textLogoStyle={fontSize:"24px",fontWeight:500,letterSpacing:"8%",color:"#9B1D08",ml:"18px"}
+  const textLogoStyle={fontSize:{xl:"24px",xs:"18px"},fontWeight:500,letterSpacing:"8%",color:"#9B1D08",ml:"6px"}
   const loginButtonStyle={
     fontSize:"16px",
     fontWeight:500,
@@ -146,7 +146,7 @@ function Navbar() {
     >
       <List sx={{pt:5}}>
         <Link to="/">
-          {/* <img src={logo} alt="logo" width="100%" height="100%" /> */}
+          <img src={logo} alt="logo" style={{marginLeft:"30%"}} />
           <Typography sx={textLogoStyle}>Papineau Locker</Typography>
         </Link>
         {pages.map((text, index) => (
@@ -272,18 +272,20 @@ function Navbar() {
               {/*------- logo in Tablet ---- */}
               <Box
                 sx={{
-                  flexGrow:1,
-                  mt:{xl:"5px",xs:"18px"}
+                  mt:{xl:"3px",lg:"3px",md:"3px",xs:"3px"},
+                  width:{xl:"30%",md:"35%"}
                 }}
               >
-                <Link to="/">
-                  {/* <img
-                    src={logoPNG}
-                    alt="grays and danny's logo"
-                    width="100%"
-                    height="100%"
+                <Link to="/" style={{display:"flex",
+                  flexDirection:"row",
+                  alignItems:"center",}}>
+                  <img
+                    src={logo}
+                    alt="Papineau Locker logo"
+                   
+                    style={{height:"60px",width:"60px"}}
                     className="image-navbar"
-                  /> */}
+                  />
                   <Typography sx={textLogoStyle}>Papineau Locker</Typography>
                 </Link>
               </Box>
@@ -292,7 +294,7 @@ function Navbar() {
               <Box
                 sx={{
                   flexGrow: 1,
-                  display: { xs: "none", lg: "flex", marginLeft: "150px" },
+                  display: { xs: "none", lg: "flex", marginLeft: "100px" },
                 }}
               >
                 {pages.map((page, index) => (
@@ -360,7 +362,7 @@ function Navbar() {
                   }}
                 >
                   <Link to="/cart" aria-label="go to cart page">
-                    <img src={cartIcon} alt="cart /- grays and danny's" />
+                    <img src={cartIcon} alt="cart /- Papineau Locker's" />
                   </Link>
                 </Box>
                 {/* {window.location.pathname ="/wholesale" ?  : ""} */}
@@ -462,7 +464,7 @@ function Navbar() {
                         
                         backgroundColor: "#fff",
                         borderRadius: "8px",
-                        marginTop:"-40px",
+                        marginTop:"-60px",
                         padding: "10px",
                         color: "#fff",
                         boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.2)",
