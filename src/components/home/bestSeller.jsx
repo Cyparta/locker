@@ -14,19 +14,6 @@ import { useNavigate } from "react-router";
 import { getGuestCart, postCartGuest, postItemToCart } from "../../store/guestCart/guestCartSlice";
 
 
-function PreviousButton(props) {
-  const { className, style, onClick } = props;
-  return (
-    <button
-      className={className}
-      style={{ ...style, display: "block" }}
-      onClick={onClick}
-    >
-      Previous
-    </button>
-  );
-}
-
 const BestSeller = ({ token }) => {
   const tokenGuest = useSelector(state => state.guestCart.cartID);
   const [bestSeller, setBestSeller] = useState([]);
@@ -81,11 +68,7 @@ const BestSeller = ({ token }) => {
     }
     }}
  
-    const sliderRef = useRef(null);
-
-  const handlePrevClick = () => {
-    sliderRef.current.slickPrev();
-  };
+  
   const settings = {
     infinite: true,
     speed: 500,
@@ -233,9 +216,9 @@ const BestSeller = ({ token }) => {
           
           
           {bestSeller.length>5&&
-          <Slider  ref={sliderRef} {...settings} style={{overflow: "hidden",height:"320px"}}>
+          <Slider   {...settings} style={{overflow: "hidden",height:"320px"}}>
             {bestSeller.map((product) => (
-              <Box key={product.product_id} sx={{height:"329px",display:"flex",justifyContent:"space-between",flexDirection:"column"}}>
+              <Box key={product.product_id} sx={{height:"329px",width:"242px",display:"flex",justifyContent:"space-between",flexDirection:"column"}}>
                 <img
                   src={product.product__image}
                   alt={product.product__product_name}
