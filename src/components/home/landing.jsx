@@ -31,7 +31,7 @@ const Landing = () => {
             flexDirection:"column",
             justifyContent:"center",
             width:{xl:"50%",lg:"50%",md:"50%",sm:"100%",xs:"100%"} ,
-            pt:{md:"192px",xs:"192px"},
+            pt:{md:"192px",xs:"40px"},
             pb:{md:"12px",xs:"12px"}
             
 

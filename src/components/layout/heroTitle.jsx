@@ -2,9 +2,10 @@ import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import arrow from "../../assets/home/arrowRight.svg";
 import React from "react";
+import { Fragment } from "react";
 const HeroTitle = ({ crumbs = [] }) => {
   return (
-    <>
+    <Fragment>
       <Box sx={{ display: "flex", alignItems: "center", flexDirection: "row" }}>
         {crumbs?.map((crumb, index) => (
           <React.Fragment key={index}>
@@ -31,7 +32,7 @@ const HeroTitle = ({ crumbs = [] }) => {
           </React.Fragment>
         ))}
       </Box>
-    </>
+    </Fragment>
   );
 };
 

@@ -38,12 +38,41 @@ import AddressDetails from "./pages/profile/addressDetails";
 import { getShippingID } from "./store/shipping/shippingSlice";
 import AddressAdd from "./pages/profile/addressAdd";
 import { getGuestCart } from "./store/guestCart/guestCartSlice";
+import { onMessageListener, requestPermission } from "./firebase";
 
-function App() {
+import { get_token } from "./firebase";
+import axios from "axios";
+import { BASEURL } from "./data/API";
+function App({currentToken}) {
   const location = useLocation();
   const dispatch = useDispatch();
-
+console.log(currentToken);
   const [open, setOpen] = useState(false);
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({
+    title: "dfd",
+    body: "dddd",
+  });
+  const [isTokenFound, setTokenFound] = useState({
+    status:false,
+    token:""});
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("/firebase-messaging-sw.js")
+      .then((registration) => {
+        console.log("Registration successful, scope is:", registration.scope);
+      })
+      .catch((error) => {
+        console.log("Service worker registration failed, error:", error);
+      });
+  }
+  // getToken(setTokenFound)
+  // onMessageListener().then(payload => {
+  //   setShow(true);
+  //   setNotification({title:payload.notification.title, body:payload.notification.body})
+  //   console.log(payload);
+  // }).catch(err => console.log('failed: ', err));
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -55,23 +84,33 @@ function App() {
   // const { items, total_price } = useSelector((state) => state.cart);
   const { error } = useSelector((state) => state.cart);
   // const token = localStorage.getItem("token");
-  const token = useSelector(state => state.user.user);
-  const guestToken = useSelector(state => state.guestCart.cartID);
+  const token = useSelector((state) => state.user.user);
+  const guestToken = useSelector((state) => state.guestCart.cartID);
 
   useEffect(() => {
     if (token) {
+      axios.post(`${BASEURL}api/devices/login/`, {
+        registration_id:isTokenFound.status===true? isTokenFound.token:"",
+        type: "web",
+
+      }).then((res)=>console.log(res))
       dispatch(getCart());
     }
 
     if (guestToken) {
-      dispatch(getGuestCart())
+      dispatch(getGuestCart());
     }
   }, [token, guestToken]);
 
   useEffect(() => {
+    requestPermission();
+    get_token(setTokenFound);
+  }, []);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-  
+  useEffect(() => {}, []);
   return (
     <div className="App">
       <CssBaseline />
@@ -84,13 +123,13 @@ function App() {
           height: "100%",
           margin: 0,
           overflow: "hidden",
-          paddingTop: "70px"
+          paddingTop: "70px",
         }}
       >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -112,9 +151,9 @@ function App() {
           <Route path="/profile/address" element={<Address />} />
           <Route path="/profile/address/:id" element={<AddressDetails />} />
           <Route path="/profile/address/add" element={<AddressAdd />} />
-          
+
           {/* <Route path="/profile/address" element={<Profile active={2} />}/> */}
-          
+
           <Route path="/payment" element={<Payment />} />
           <Route path="/payment/success" element={<PaymentSuccess />} />
           <Route path="/payment/cancel" element={<PaymentCancel />} />
@@ -128,7 +167,7 @@ function App() {
         location.pathname !== "/payment/success" &&
         location.pathname !== "/forgotPassword" && <Footer />}
       <ToastContainer position="bottom-left" />
-      
+
       {/* {error ? <DialogCardError open={open} handleClose={handleClose}/> : ""} */}
       {/* <DialogCardError open={open} handleClose={handleClose}/> */}
     </div>

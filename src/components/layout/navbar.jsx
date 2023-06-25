@@ -120,7 +120,7 @@ function Navbar() {
     setState({ ...state, [anchor]: open });
   };
 
-  const textLogoStyle={fontSize:{xl:"24px",xs:"18px"},fontWeight:500,letterSpacing:"8%",color:"#9B1D08",ml:"6px"}
+  const textLogoStyle={fontSize:{xl:"24px",xs:"18px"},fontWeight:500,letterSpacing:"8%",color:"#9B1D08",ml:"6px",display:{md:"block",xs:"none"}}
   const loginButtonStyle={
     fontSize:"16px",
     fontWeight:500,
@@ -133,7 +133,7 @@ function Navbar() {
     bgcolor:"#9B1D08",
     color:"#fff",
     marginLeft:"22px",
-    pt:1.4
+    pt:1.4,
   }
 
   /*----- sidebar ----- */
@@ -199,7 +199,7 @@ function Navbar() {
               color: "#000",
             }}
           >
-            <Link to={token ? "/cart" : "/login"}>
+            <Link to={ "/cart" }>
               <ShoppingCartIcon />
             </Link>
           </Box>
@@ -342,7 +342,7 @@ function Navbar() {
                   alignItems: "center",
                 }}
               >
-                <Box sx={{ color: "#121212", m: "0", p: "0" }}>
+                <Box sx={{ color: "#121212", m: "0", p: "0" ,textDecoration:"none"}}>
                   <Link
                     onClick={() => setQuery(!query)}
                     aria-label="go to search"
@@ -350,9 +350,6 @@ function Navbar() {
                     <SearchIcon />
                   </Link>
                 </Box>
-
-               
-
                 <Box
                   sx={{
                     m: "0",
@@ -455,6 +452,45 @@ function Navbar() {
                 }}
               >
                 {/*------------ mobile icon and nav open --------- */}
+
+                <Box
+                  sx={{
+                    m: "0",
+                    p: "0",
+                    marginRight: "16px",
+                    marginLeft: "25px",
+                  }}
+                >
+                  <Box sx={{display:{md:"none",xs:"flex",flexDirection:"row",alignItems:"center"}}}>
+                  <Link to="/cart" aria-label="go to cart page" >
+                    <img src={cartIcon} alt="cart /- Papineau Locker's"  style={{marginTop:"-90px",}}/>
+                  </Link>
+                  <Typography
+                  sx={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    marginRight: "16px",
+                    marginLeft: "16px",
+                    marginTop:"-80px",
+                    color:"#121212",
+                  }}
+                >
+                  {guestToken ? guest.length : items.length ? items.length : 0  }
+                </Typography>
+                {!guestToken ? (
+                  <Typography sx={{ fontSize: "16px", fontWeight: "600" ,color:"#121212",marginTop:"-80px"}}>
+                    $ {total_price ? formatPrice(total_price) : "00.00"}
+                  </Typography>
+                ) : (
+                  <Typography sx={{ fontSize: "16px", fontWeight: "600" ,color:"#121212",marginTop:"-80px"}}>
+                    $ {guest_price  ? formatPrice(guest_price ) : "00.00"}
+                  </Typography>
+                )}
+                  </Box>
+                  
+                </Box>
+                {/* {window.location.pathname ="/wholesale" ?  : ""} */}
+               
                 {["left"].map((anchor) => (
                   <React.Fragment key={anchor}>
                     <Button
@@ -464,7 +500,7 @@ function Navbar() {
                         
                         backgroundColor: "#fff",
                         borderRadius: "8px",
-                        marginTop:"-60px",
+                        marginTop:"-80px",
                         padding: "10px",
                         color: "#fff",
                         boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.2)",
@@ -484,6 +520,7 @@ function Navbar() {
                     </Drawer>
                   </React.Fragment>
                 ))}
+                
                 {/* <Box
                   sx={{
                     display: { xs: "flex", lg: "none" },

@@ -202,7 +202,7 @@ const Product = () => {
     <>
       <PageMeta
         title={`${items.product_name} - Papineau Locker`}
-        desc={`Shop ${items.product_name} product meat at Grays and Danny's. We offer high-quality beef, pork, chicken, and more, sourced from local farms and raised with care. Our meats are expertly prepared and delivered fresh to your door, so you can enjoy the best-tasting and healthiest meats available. With fast and reliable shipping, easy returns, and exceptional customer service, Papineau Locker is your one-stop online destination for all your meat needs.`}
+        desc={`Shop ${items.product_name} product meat at Papineau Locker. We offer high-quality beef, pork, chicken, and more, sourced from local farms and raised with care. Our meats are expertly prepared and delivered fresh to your door, so you can enjoy the best-tasting and healthiest meats available. With fast and reliable shipping, easy returns, and exceptional customer service, Papineau Locker is your one-stop online destination for all your meat needs.`}
       />
       <Box mt="17px">
         <Container maxWidth="xl">
