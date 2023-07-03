@@ -87,16 +87,20 @@ console.log(currentToken);
   const token = useSelector((state) => state.user.user);
   const guestToken = useSelector((state) => state.guestCart.cartID);
 
-  useEffect(() => {
-    if (token) {
+  useEffect(()=> {
+    if (token.value>0) {
       axios.post(`${BASEURL}api/devices/login/`, {
         registration_id:isTokenFound.status===true? isTokenFound.token:"",
-        type: "web",
+        type: "android",
 
+      },{
+        headers: {
+          "Authorization":`JWT ${token}`,
+}
       }).then((res)=>console.log(res))
       dispatch(getCart());
     }
-
+    
     if (guestToken) {
       dispatch(getGuestCart());
     }
