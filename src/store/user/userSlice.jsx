@@ -13,6 +13,7 @@ const getLocalStoarge = () => {
 export const postLogin = createAsyncThunk(
   "postLogin",
   async (data, ThunkApi) => {
+    
     try {
       const response = await axios.post(`${BASEURL}auth/jwt/create/`, {
         ...data,
@@ -64,7 +65,8 @@ const initialState = {
   error: null,
   user: getLocalStoarge(),
   checkEmail: false,
-  errMsg:""
+  errMsg:"",
+  currentToken:""
 };
 
 export const userSlice = createSlice({
@@ -77,6 +79,10 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = null;
     },
+   setCurrentToken: (state, action) => {
+      state.currentToken = action.payload;
+    }
+    
   },
   extraReducers: (builder) => {
     builder
@@ -131,6 +137,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setChecked, setUser } = userSlice.actions;
+export const { setChecked, setUser,setCurrentToken } = userSlice.actions;
 
 export default userSlice.reducer;

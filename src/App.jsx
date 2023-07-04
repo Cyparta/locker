@@ -46,13 +46,10 @@ import { BASEURL } from "./data/API";
 function App({currentToken}) {
   const location = useLocation();
   const dispatch = useDispatch();
-console.log(currentToken);
+
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
-  const [notification, setNotification] = useState({
-    title: "dfd",
-    body: "dddd",
-  });
+  
   const [isTokenFound, setTokenFound] = useState({
     status:false,
     token:""});
@@ -85,36 +82,45 @@ console.log(currentToken);
   const { error } = useSelector((state) => state.cart);
   // const token = localStorage.getItem("token");
   const token = useSelector((state) => state.user.user);
+
   const guestToken = useSelector((state) => state.guestCart.cartID);
 
-  useEffect(()=> {
-    if (token.value>0) {
-      axios.post(`${BASEURL}api/devices/login/`, {
-        registration_id:isTokenFound.status===true? isTokenFound.token:"",
-        type: "android",
+  const getNotification=async()=>{
+    if (token && isTokenFound.status) {
+   await axios.post(`${BASEURL}api/devices/login/`, {
+      registration_id:isTokenFound.status===true? isTokenFound.token:"",
+      type: "web",
+    },{
+      headers: {
+        "Authorization":`JWT ${token}`,
+}}).then((res)=>console.log(res))
+    }
+  }
 
-      },{
-        headers: {
-          "Authorization":`JWT ${token}`,
-}
-      }).then((res)=>console.log(res))
+
+  useEffect(()=> {
+    if (token) {
+      
       dispatch(getCart());
     }
     
     if (guestToken) {
       dispatch(getGuestCart());
     }
+    
   }, [token, guestToken]);
 
   useEffect(() => {
     requestPermission();
-    get_token(setTokenFound);
+    get_token(setTokenFound,dispatch);
+    
   }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    getNotification()
   }, [location.pathname]);
-  useEffect(() => {}, []);
+  
   return (
     <div className="App">
       <CssBaseline />

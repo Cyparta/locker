@@ -34,6 +34,9 @@ import { HashLink, NavHashLink } from "react-router-hash-link";
 import { MainButton } from "../../shared/style";
 import { useState } from "react";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import axios from "axios";
+import { BASEURL } from "../../data/API";
+import { get_token } from "../../firebase";
 
 const pages = [
   {
@@ -76,9 +79,6 @@ function Navbar() {
   const { pathname } = useLocation();
   const handleIndexLink=(e,page,index)=>{
     setIndexLink(index)
-    console.log(index);
-    console.log(page)
-    console.log(pathname)
   }
   const isactive = (path) => pathname === path;
   const { items } = useSelector((state) => state.cart);
@@ -92,12 +92,26 @@ function Navbar() {
   // token
   // const token = localStorage.getItem("token");
   const token = useSelector((state) => state.user.user);
+  const {currentToken} = useSelector((state) => state.user);
   const guestToken = useSelector((state) => state.guestCart.cartID);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchRef = React.useRef();
 
+  const Logout=()=>{
+    axios.post(`${BASEURL}api/devices/logout/`, {
+      registration_id:currentToken,
+      type: "web",
+    },{
+      headers: {
+        "Authorization":`JWT ${token}`,
+}}).then((res)=>console.log(res))
+localStorage.removeItem("token");
+dispatch(setUser(null));
+navigate("/login");
+  }
+  
   // close search on click outSide
   React.useEffect(() => {
     function handleClickOutside(event) {
@@ -210,9 +224,7 @@ function Navbar() {
               <Link
                 style={{ color: "#000", textDecoration: "none" }}
                 onClick={() => {
-                  localStorage.removeItem("token");
-                  dispatch(setUser(null));
-                  navigate("/login");
+                  Logout()
                 }}
                 aria-label="click to logout"
               >
@@ -459,11 +471,12 @@ function Navbar() {
                     p: "0",
                     marginRight: "16px",
                     marginLeft: "25px",
+                    mt:"-50px"
                   }}
                 >
                   <Box sx={{display:{md:"none",xs:"flex",flexDirection:"row",alignItems:"center"}}}>
-                  <Link to="/cart" aria-label="go to cart page" >
-                    <img src={cartIcon} alt="cart /- Papineau Locker's"  style={{marginTop:"-90px",}}/>
+                  <Link to="/cart" aria-label="go to cart page">
+                    <img src={cartIcon} alt="cart /- Papineau Locker's"  />
                   </Link>
                   <Typography
                   sx={{
@@ -471,18 +484,18 @@ function Navbar() {
                     fontWeight: "600",
                     marginRight: "16px",
                     marginLeft: "16px",
-                    marginTop:"-80px",
+                    
                     color:"#121212",
                   }}
                 >
                   {guestToken ? guest.length : items.length ? items.length : 0  }
                 </Typography>
                 {!guestToken ? (
-                  <Typography sx={{ fontSize: "16px", fontWeight: "600" ,color:"#121212",marginTop:"-80px"}}>
+                  <Typography sx={{ fontSize: "16px", fontWeight: "600" ,color:"#121212",}}>
                     $ {total_price ? formatPrice(total_price) : "00.00"}
                   </Typography>
                 ) : (
-                  <Typography sx={{ fontSize: "16px", fontWeight: "600" ,color:"#121212",marginTop:"-80px"}}>
+                  <Typography sx={{ fontSize: "16px", fontWeight: "600" ,color:"#121212",}}>
                     $ {guest_price  ? formatPrice(guest_price ) : "00.00"}
                   </Typography>
                 )}
@@ -500,7 +513,7 @@ function Navbar() {
                         
                         backgroundColor: "#fff",
                         borderRadius: "8px",
-                        marginTop:"-80px",
+                        marginTop:"-60px",
                         padding: "10px",
                         color: "#fff",
                         boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.2)",

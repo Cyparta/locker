@@ -1,6 +1,9 @@
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 import { initializeApp } from 'firebase/app';
+import { useDispatch } from "react-redux";
+import { setCurrentToken } from "./store/user/userSlice";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyC4yZXQc3HMoweFfOBmXnn7nHMNaHUJKWk",
@@ -16,12 +19,14 @@ initializeApp(firebaseConfig);
 const firebaseApp = initializeApp(firebaseConfig);
 const messaging = getMessaging(firebaseApp);
 
-export const get_token = (setTokenFound,) => {
-  
+export const get_token = (setTokenFound,dispatsh) => {
+ 
   return getToken(messaging, {vapidKey: 'BA9WFICP3waGgMbZnsCyElE-1o47t6X_dx3Wr4gngGRJ88L0d0ZXHLsCuceW2yymELd95at4mi_1hG1PmS0jCTs'}).then((currentToken) => {
     if (currentToken) {
       console.log('current token for client: ', currentToken);
       setTokenFound({status:true,token:currentToken});
+      // const dispatsh=useDispatch()
+      dispatsh(setCurrentToken(currentToken))
       // Track the token -> client mapping, by sending to backend server
       // show on the UI that permission is secured
     } else {
