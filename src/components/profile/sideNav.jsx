@@ -96,13 +96,13 @@ const SideNav = () => {
             </Box>
           );
         })}
-        <Box sx={{ borderTop: "0.5px solid #121212", py: "23px" }}>
+        <Box sx={{ borderTop: "0.5px solid #121212", py: "23px"}}>
           <button
             className={"main-btn-outline main-btn-not-active"}
             style={{
               cursor: "pointer",
               borderRadius: "10px",
-              color: "#000 !important",
+              color: "#000",
               textAlign: "center",
             }}
             onClick={logOut}

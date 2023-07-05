@@ -34,6 +34,9 @@ import { HashLink, NavHashLink } from "react-router-hash-link";
 import { MainButton } from "../../shared/style";
 import { useState } from "react";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import axios from "axios";
+import { BASEURL } from "../../data/API";
+import { get_token } from "../../firebase";
 
 const pages = [
   {
@@ -76,9 +79,6 @@ function Navbar() {
   const { pathname } = useLocation();
   const handleIndexLink=(e,page,index)=>{
     setIndexLink(index)
-    console.log(index);
-    console.log(page)
-    console.log(pathname)
   }
   const isactive = (path) => pathname === path;
   const { items } = useSelector((state) => state.cart);
@@ -92,12 +92,26 @@ function Navbar() {
   // token
   // const token = localStorage.getItem("token");
   const token = useSelector((state) => state.user.user);
+  const {currentToken} = useSelector((state) => state.user);
   const guestToken = useSelector((state) => state.guestCart.cartID);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchRef = React.useRef();
 
+  const Logout=()=>{
+    axios.post(`${BASEURL}api/devices/logout/`, {
+      registration_id:currentToken,
+      type: "web",
+    },{
+      headers: {
+        "Authorization":`JWT ${token}`,
+}}).then((res)=>console.log(res))
+localStorage.removeItem("token");
+dispatch(setUser(null));
+navigate("/login");
+  }
+  
   // close search on click outSide
   React.useEffect(() => {
     function handleClickOutside(event) {
@@ -120,7 +134,7 @@ function Navbar() {
     setState({ ...state, [anchor]: open });
   };
 
-  const textLogoStyle={fontSize:{xl:"24px",xs:"18px"},fontWeight:500,letterSpacing:"8%",color:"#9B1D08",ml:"6px"}
+  const textLogoStyle={fontSize:{xl:"24px",xs:"18px"},fontWeight:500,letterSpacing:"8%",color:"#9B1D08",ml:"6px",display:{md:"block",xs:"none"}}
   const loginButtonStyle={
     fontSize:"16px",
     fontWeight:500,
@@ -133,7 +147,7 @@ function Navbar() {
     bgcolor:"#9B1D08",
     color:"#fff",
     marginLeft:"22px",
-    pt:1.4
+    pt:1.4,
   }
 
   /*----- sidebar ----- */
@@ -199,7 +213,7 @@ function Navbar() {
               color: "#000",
             }}
           >
-            <Link to={token ? "/cart" : "/login"}>
+            <Link to={ "/cart" }>
               <ShoppingCartIcon />
             </Link>
           </Box>
@@ -210,9 +224,7 @@ function Navbar() {
               <Link
                 style={{ color: "#000", textDecoration: "none" }}
                 onClick={() => {
-                  localStorage.removeItem("token");
-                  dispatch(setUser(null));
-                  navigate("/login");
+                  Logout()
                 }}
                 aria-label="click to logout"
               >
@@ -342,7 +354,7 @@ function Navbar() {
                   alignItems: "center",
                 }}
               >
-                <Box sx={{ color: "#121212", m: "0", p: "0" }}>
+                <Box sx={{ color: "#121212", m: "0", p: "0" ,textDecoration:"none"}}>
                   <Link
                     onClick={() => setQuery(!query)}
                     aria-label="go to search"
@@ -350,9 +362,6 @@ function Navbar() {
                     <SearchIcon />
                   </Link>
                 </Box>
-
-               
-
                 <Box
                   sx={{
                     m: "0",
@@ -455,6 +464,46 @@ function Navbar() {
                 }}
               >
                 {/*------------ mobile icon and nav open --------- */}
+
+                <Box
+                  sx={{
+                    m: "0",
+                    p: "0",
+                    marginRight: "16px",
+                    marginLeft: "25px",
+                    mt:"-50px"
+                  }}
+                >
+                  <Box sx={{display:{md:"none",xs:"flex",flexDirection:"row",alignItems:"center"}}}>
+                  <Link to="/cart" aria-label="go to cart page">
+                    <img src={cartIcon} alt="cart /- Papineau Locker's"  />
+                  </Link>
+                  <Typography
+                  sx={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    marginRight: "16px",
+                    marginLeft: "16px",
+                    
+                    color:"#121212",
+                  }}
+                >
+                  {guestToken ? guest.length : items.length ? items.length : 0  }
+                </Typography>
+                {!guestToken ? (
+                  <Typography sx={{ fontSize: "16px", fontWeight: "600" ,color:"#121212",}}>
+                    $ {total_price ? formatPrice(total_price) : "00.00"}
+                  </Typography>
+                ) : (
+                  <Typography sx={{ fontSize: "16px", fontWeight: "600" ,color:"#121212",}}>
+                    $ {guest_price  ? formatPrice(guest_price ) : "00.00"}
+                  </Typography>
+                )}
+                  </Box>
+                  
+                </Box>
+                {/* {window.location.pathname ="/wholesale" ?  : ""} */}
+               
                 {["left"].map((anchor) => (
                   <React.Fragment key={anchor}>
                     <Button
@@ -484,6 +533,7 @@ function Navbar() {
                     </Drawer>
                   </React.Fragment>
                 ))}
+                
                 {/* <Box
                   sx={{
                     display: { xs: "flex", lg: "none" },

@@ -23,7 +23,7 @@ const Login = () => {
   const { user, errMsg, loading } = useSelector((state) => state.user);
   //----- checkBox
   // const [checked, setChecked] = useState(true);
-
+console.log(token)
   //---- dispatch
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,10 +49,11 @@ const Login = () => {
     }),
     onSubmit: (values) => {
       const { email, password } = values;
+
       dispatch(postLogin({ email, password }));
       dispatch(clearItems())
       localStorage.removeItem("tokenGuest")
-      if (user.length > 0) {
+      if (user?.length > 0) {
         setTimeout(() => {
           navigate("/home");
         }, 1000);

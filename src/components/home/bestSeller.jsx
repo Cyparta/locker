@@ -74,7 +74,7 @@ const BestSeller = ({ token }) => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    dots: true,
+   
     autoplaySpeed: 2000,
     autoplay:true,
     // prevArrow: <PreviousButton onClick={handlePrevClick} />,
@@ -149,6 +149,7 @@ const BestSeller = ({ token }) => {
     lineHeight: "21.33px",
     letterSpacing: "-0.24px",
     mb: "8px",
+    mt:"8px"
   };
   const sellDesc = {
     fontSize: "16px",
@@ -216,7 +217,7 @@ const BestSeller = ({ token }) => {
           
           
           {bestSeller.length>5&&
-          <Slider   {...settings} style={{overflow: "hidden",height:"320px"}}>
+          <Slider   {...settings} style={{overflow: "hidden",height:"330px"}}>
             {bestSeller.map((product) => (
               <Box key={product.product_id} sx={{height:"329px",width:"242px",display:"flex",justifyContent:"space-between",flexDirection:"column"}}>
                 <img
