@@ -1,5 +1,5 @@
 // const BASEURL = "http://192.168.1.22:9000/";
-const BASEURL = "https://whale-app-e85pu.ondigitalocean.app/";
+const BASEURL = "https://papineaua-api.cyparta.com/";
 // const BASEURL = "https://api.floridahalalmeat.com/";
 const HostPayment = "http://localhost:3000/";
 
