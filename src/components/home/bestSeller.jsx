@@ -34,7 +34,7 @@ const BestSeller = ({ token }) => {
   };
 
   useEffect(() => {
-    getBestSeller();
+    // getBestSeller();
   }, []);
 
   const handleAddToCart = (e, product_id) => {

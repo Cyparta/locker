@@ -180,7 +180,7 @@ const settings = {
                 <Typography sx={{color:"#BDBDBD",mt:"16px",fontSize:"14px",fontWeight:400,lineHeight:"16.59px",mx:"25%"}}>{item.description.slice(0,50)}</Typography>
                 <Box sx={buttonBoxStyle} >
                     <Typography component="span" sx={shapeLeftStyle} className="Left"></Typography>
-                <Button sx={ButtonStyle}>{item.deposite}$</Button>
+                <Button sx={ButtonStyle}>{item.unit_price}$</Button>
                 <Typography component="span" sx={shapeRightStyle} className='Right'></Typography>
                 </Box>
             </Box>
@@ -196,7 +196,7 @@ const settings = {
             <Typography sx={{color:"#BDBDBD",mt:"16px",fontSize:"14px",fontWeight:400,lineHeight:"16.59px",mx:"25%"}}>{item.description.slice(0,50)}</Typography>
             <Box sx={buttonBoxStyle} >
                 <Typography component="span" sx={shapeLeftStyle} className="Left"></Typography>
-            <Button sx={ButtonStyle}>{item.deposite}$</Button>
+            <Button sx={ButtonStyle}>{item.unit_price}$</Button>
             <Typography component="span" sx={shapeRightStyle} className='Right'></Typography>
             </Box>
         </Box>
