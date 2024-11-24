@@ -129,7 +129,7 @@ const Footer = () => {
         </Grid>
        
         <Grid item xs={12} sm={6} md={6}lg={3}>
-        <Box sx={{display:"flex",alignItems:{xs:"center",flexDirection:"column"},}}>
+        {/* <Box sx={{display:"flex",alignItems:{xs:"center",flexDirection:"column"},}}>
           <Typography sx={titleStyle}>Download App</Typography>
           <Box sx={{ display: "flex", gap:3, flexDirection:{xl:"column",lg:"column",md:"row",sm:"column"},mt:"16px" }}>
             <a href={PLAYSTORE} target="_blank" rel="noreferrer">
@@ -139,7 +139,7 @@ const Footer = () => {
               <img src={appStore} alt="app Store" />
             </a>
           </Box>
-        </Box>
+        </Box> */}
         </Grid>
         <Grid item xs={12} sm={12} md={4}lg={3}>
         <Box sx={{display:"flex",alignItems:{xs:"center",flexDirection:"column"}}}>

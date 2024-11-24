@@ -26,7 +26,7 @@ const BestSeller = ({ token }) => {
 
   const getBestSeller = () => {
     axios
-      .get(`${BASEURL}api/best-sellers/`)
+      .get(`${BASEURL}bestsellers/`)
       .then((res) => setBestSeller(res.data));
   };
   const handleClose = () => {
@@ -34,7 +34,7 @@ const BestSeller = ({ token }) => {
   };
 
   useEffect(() => {
-    // getBestSeller();
+    getBestSeller();
   }, []);
 
   const handleAddToCart = (e, product_id) => {
@@ -192,23 +192,23 @@ const BestSeller = ({ token }) => {
           bestSeller.map((product,index) =>
           
           (
-            <Box key={`${product.product_id} ${index}`}>
+            <Box key={`${product.id} ${index}`}>
               <img
-                src={product.product__image}
-                alt={product.product__product_name}
+                src={product?.image}
+                alt={product?.product_name}
                 width="100%"
                 height='152px'
               />
               <Typography sx={sellTitle}>
-                {product.product__product_name}
+                {product?.product_name}
               </Typography>
               <Typography sx={sellDesc}>
-                {product.product__description.slice(0, 60)}
+                {product?.description?.slice(0, 60)}
               </Typography>
-              <Typography sx={sellPrice}>{product.total_sales} $</Typography>
+              <Typography sx={sellPrice}>{product.unit_price} $</Typography>
               <Button
                 sx={addCartButton}
-                onClick={(e) =>{handleAddToCart(e,product?.product_id)}}
+                onClick={(e) =>{handleAddToCart(e,product?.id)}}
               >
                 Add to cart
               </Button>
@@ -221,22 +221,22 @@ const BestSeller = ({ token }) => {
             {bestSeller.map((product) => (
               <Box key={product.product_id} sx={{height:"329px",width:"242px",display:"flex",justifyContent:"space-between",flexDirection:"column"}}>
                 <img
-                  src={product.product__image}
-                  alt={product.product__product_name}
+                  src={product.image}
+                  alt={product.product_name}
                   width="100%"
                   height='152px'
                 />
                 <Typography sx={sellTitle}>
-                  {product.product__product_name}
+                  {product.product_name}
                 </Typography>
                 <Typography sx={sellDesc}>
-                  {product.product__description.slice(0, 60)}
+                  {product?.description?.slice(0, 60)}
                 </Typography>
-                <Typography sx={sellPrice}>{product.total_sales} $</Typography>
+                <Typography sx={sellPrice}>{product.unit_price} $</Typography>
                 <Button
                   sx={addCartButton}
                   onClick={(e) =>
-                    handleAddToCart(e,product?.product_id)
+                    handleAddToCart(e,product?.id)
                   }
                 >
                   Add to cart

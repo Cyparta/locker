@@ -45,14 +45,14 @@ const Landing = () => {
           >
            thinking you make a better decision more than choosing us !! <br/>thinking you make a better 
           </Typography>
-          <Box sx={{ display: "flex", gap:{xs:"10px", sm:"15px"}, flexDirection:{xs:"column", sm:"row"} }}>
+          {/* <Box sx={{ display: "flex", gap:{xs:"10px", sm:"15px"}, flexDirection:{xs:"column", sm:"row"} }}>
             <a href={PLAYSTORE} target="_blank" rel="noreferrer">
               <img src={googlePlay} alt="google play" />
             </a>
             <a href={PLAYSTORE} rel="noreferrer" sx={{ marginLeft: { xs: "0 !important", sm: "16px" } }}>
               <img src={appStore} alt="app Store" />
             </a>
-          </Box>
+          </Box> */}
         </Box>
       
       <Box
